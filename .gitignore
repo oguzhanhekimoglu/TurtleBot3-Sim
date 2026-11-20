@@ -31,3 +31,9 @@ docs/sartnameler/*.docx
 SUNUM-KARTI.md
 docs/04-bir-haftalik-plan.md
 docs/05-kaptanla-kod-gezintisi.md
+
+# Depoda tutulmayanlar -- diskte duruyor.
+docs/ozet-sayfa.html
+PROJE-REHBERI.md
+ros1_noetic/
+ogren/

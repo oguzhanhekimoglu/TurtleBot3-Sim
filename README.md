@@ -24,8 +24,8 @@ TEKNOFEST Robotaksi yarışması hazırlığı.
 
 Karar mantığının tamamı (**1555 satır**) ROS'tan bağımsız saf Python.
 `rclpy` yalnızca üç ince düğüm dosyasında — bu sayede testler Gazebo
-açmadan koşuyor, ROS 1 Noetic'e taşımak tek dosya yazmak demek
-(`ros1_noetic/`), ve sensör değişimi tek modülü etkiliyor.
+açmadan koşuyor, sensör değişimi tek modülü etkiliyor ve başka bir ROS
+sürümüne taşımak yalnızca düğüm katmanını yeniden yazmak demek.
 
 Senaryolar tek yerde tanımlı; Gazebo dünyaları oradan **üretiliyor**, böylece
 2B ve 3B testler aynı parkuru ölçüyor.
@@ -193,8 +193,7 @@ gerçekten yaşanmış bir hatayı anlatıyor — örn.
 
 ## Bulunan ve düzeltilen hatalar
 
-On hata, hepsi ölçümle bulundu. Her birinin ayrıntısı
-[PROJE-REHBERI.md](PROJE-REHBERI.md) bölüm 7'de.
+On hata, hepsi ölçümle bulundu.
 
 **Karar mantığında (2B simülatörde bulundu):**
 
