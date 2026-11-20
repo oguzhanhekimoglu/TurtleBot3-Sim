@@ -29,4 +29,5 @@ docs/sartnameler/*.docx
 # Kisisel hazirlik notlari -- diskte duruyor, depoya girmiyor.
 # Bunlar proje dokumani degil; sunum provasi ve konusma notlari.
 SUNUM-KARTI.md
+docs/04-bir-haftalik-plan.md
 docs/05-kaptanla-kod-gezintisi.md

@@ -591,7 +591,5 @@ Bunları bilmek saatler kazandırır.
 | `docs/01-sartname-ozeti.md` | 2022→2026 şartname karşılaştırması, puanlama tabloları, GEOJSON |
 | `docs/02-otonom-arac-nasil-yurur.md` | Otonomi yığını detaylı, gerçek araç topic'leri |
 | `docs/03-terimler-sozlugu.md` | Terimler + tuzaklar |
-| `docs/04-bir-haftalik-plan.md` | Gün gün çalışma planı |
-| `docs/05-kaptanla-kod-gezintisi.md` | Kod gezintisi + muhtemel sorular |
 | `docs/test-sonuclari-gazebo.md` | Gazebo ölçüm tablosu |
 | `ogren/README.md` | Öğrenme merdiveni |

@@ -130,16 +130,14 @@ Güncel sonuçlar:
 | **[docs/01-sartname-ozeti.md](docs/01-sartname-ozeti.md)** | 2022→2026 şartname karşılaştırması, puanlama tabloları, GEOJSON, araç donanımı |
 | **[docs/02-otonom-arac-nasil-yurur.md](docs/02-otonom-arac-nasil-yurur.md)** | Otonomi yığınının beş katmanı, bu depodaki karşılıkları, gerçek araç topic'leri, yol haritası |
 | **[docs/03-terimler-sozlugu.md](docs/03-terimler-sozlugu.md)** | ROS + otonomi + yarışma terimleri (öğrenme sırasına göre) |
-| **[docs/04-bir-haftalik-plan.md](docs/04-bir-haftalik-plan.md)** | Gün gün çalışma planı |
-| **[docs/05-kaptanla-kod-gezintisi.md](docs/05-kaptanla-kod-gezintisi.md)** | Kod gezintisi senaryosu + muhtemel sorular ve cevapları |
-| `docs/sartnameler/` | Resmî PDF'ler ve metne çevrilmiş halleri (2022–2026) |
+| `docs/sartnameler/` | Şartnamelerin metne çevrilmiş hâlleri (2022–2026). PDF'ler için `scripts/fetch_sartnameler.sh` |
 
 ---
 
 ## Depo yapısı
 
 ```
-mergen-01/
+TurtleBot3-Sim/
 ├── install/                      kurulum scriptleri (3 adım)
 ├── docs/                         şartname özeti, mimari, sözlük, plan
 │   └── sartnameler/              resmî PDF + .txt (2022–2026)
@@ -195,8 +193,8 @@ gerçekten yaşanmış bir hatayı anlatıyor — örn.
 
 ## Bulunan ve düzeltilen hatalar
 
-Dokuz hata, hepsi ölçümle bulundu. Ayrıntı:
-[docs/05](docs/05-kaptanla-kod-gezintisi.md)
+On hata, hepsi ölçümle bulundu. Her birinin ayrıntısı
+[PROJE-REHBERI.md](PROJE-REHBERI.md) bölüm 7'de.
 
 **Karar mantığında (2B simülatörde bulundu):**
 
@@ -236,6 +234,12 @@ testlerinde görünmüyordu):**
 9. **Tetikleme geometrisi testi imkânsız kılıyordu.** `trigger_x=3.2` ile yaya
    robotun tam önüne çıkıyor, 1.05 m uyarı kalıyordu — kaçınılmaz çarpışma.
    → Karşılaşma geometrisi hesaplandı, `trigger_x=1.8`.
+10. **Geri giderken arkaya bakmıyordu.** Planlayıcı yalnızca öne bakıyor
+   (±90°), `RECOVER` ise aracı geri alıyordu — yani bakmadığı yöne. Dar
+   parkurda geri manevrada koniye çarptı (ölçüldü: `t=83 s, RECOVER,
+   v=−0.08`). Yarışmada bu diskalifiye sebebi. → Geri almadan önce arka
+   açıklık kontrolü; kapalıysa geri gitmiyor, yerinde dönüyor.
+   Çarpışma gitti, BLOCKED 445→84, RECOVER 222→37.
 
 ---
 
