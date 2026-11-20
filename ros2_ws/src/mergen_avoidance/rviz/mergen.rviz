@@ -1,0 +1,110 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+    Property Tree Widget:
+      Expanded: ~
+    Help Height: 0
+    Tree Height: 600
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Name: root
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 1
+      Plane Cell Count: 20
+      Color: 160; 160; 164
+      Line Style:
+        Value: Lines
+      Reference Frame: <Fixed Frame>
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: false
+      Marker Scale: 0.3
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Topic:
+        Value: /robot_description
+        Depth: 5
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+      Visual Enabled: true
+      Collision Enabled: false
+    - Class: rviz_default_plugins/LaserScan
+      Name: LaserScan
+      Enabled: true
+      Topic:
+        Value: /scan
+        Depth: 5
+        Durability Policy: Volatile
+        Reliability Policy: Best Effort
+      Color Transformer: Intensity
+      Size (m): 0.03
+      Style: Spheres
+      Use Fixed Frame: true
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Karar (mergen/markers)
+      Enabled: true
+      Topic:
+        Value: /mergen/markers
+        Depth: 10
+        Durability Policy: Volatile
+        Reliability Policy: Reliable
+      Namespaces:
+        {}
+    - Class: rviz_default_plugins/Odometry
+      Name: Odometry izi
+      Enabled: true
+      Topic:
+        Value: /odom
+        Depth: 100
+        Durability Policy: Volatile
+        Reliability Policy: Best Effort
+      Keep: 400
+      Position Tolerance: 0.05
+      Angle Tolerance: 0.1
+      Shape:
+        Value: Arrow
+        Alpha: 0.6
+        Color: 0; 170; 255
+        Shaft Length: 0.15
+        Shaft Diameter: 0.02
+        Head Length: 0.06
+        Head Diameter: 0.05
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: odom
+    Frame Rate: 30
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Name: Current View
+      Distance: 11
+      Focal Point:
+        X: 3.5
+        Y: 0
+        Z: 0
+      Pitch: 1.0
+      Yaw: 0.0
+      Target Frame: <Fixed Frame>
+    Saved: ~
+Window Geometry:
+  Height: 900
+  Width: 1500
+  Displays:
+    collapsed: false
+  Views:
+    collapsed: false

@@ -1,0 +1,742 @@
+       OTONOM ARAÇ
+
+
+
+
+ŞARTNAMESİ
+
+
+             1
+İÇİNDEKİLER
+1.     YARIŞMA AMACI............................................................................................................................. 3
+1.1.      Yarışma Kategorileri..................................................................................................................... 4
+1.1.1.        Özgün Araç Kategorisi ............................................................................................................. 4
+1.1.2.        Hazır Araç Kategorisi ............................................................................................................... 4
+1.2.      Yarışma Süreci ............................................................................................................................ 5
+1.3.      Yarışmaya Katılım Koşulları ......................................................................................................... 5
+1.3.1.        Takım ....................................................................................................................................... 5
+1.3.2.        Başvuru .................................................................................................................................... 5
+1.3.3.        Eğitim Seviyesi-Danışman ....................................................................................................... 6
+1.3.4.        Süreç Bilgileri ........................................................................................................................... 6
+1.3.5.        Diğer ........................................................................................................................................ 7
+2.     YARIŞMA GÖREVİ .......................................................................................................................... 7
+2.1.      Teknik Şartname .......................................................................................................................... 8
+2.2.      Parkur .......................................................................................................................................... 9
+2.3.      Trafik İşaretleri ........................................................................................................................... 10
+2.4.      Engeller ...................................................................................................................................... 10
+3.     YARIŞMA RAPORLARI VE SUNUMLARI ..................................................................................... 10
+3.1.      Teknik Yeterlilik Formu .............................................................................................................. 10
+3.2.      Kritik Tasarım Raporu ................................................................................................................ 11
+3.3.      Araç Test Videosu – Simülasyon- Sunum ................................................................................. 11
+4.     DESTEKLER VE ÖDÜLLER .......................................................................................................... 11
+4.1.      Destekler .................................................................................................................................... 12
+4.1.1.        Özgün Araç Kategorisi ........................................................................................................... 12
+4.1.2.        Hazır Araç Kategorisi ............................................................................................................. 13
+4.2.      Ödüller ve Kuralları .................................................................................................................... 13
+5.     YARIŞMA ....................................................................................................................................... 14
+5.1.      Yarışma Öncesi Yapılacak Faaliyetler ....................................................................................... 14
+5.1.1.        Hazır Araç Kategorisi Araç Eğitimi ......................................................................................... 15
+5.2.      Yarışma Sırasında Yapılacak Faaliyetler ................................................................................... 15
+5.2.1.        Teknik Kontroller .................................................................................................................... 15
+5.2.2.        Yarışmalar .............................................................................................................................. 16
+5.2.3.        Yarışma Raporu ve Sunum.................................................................................................... 16
+5.2.4.        Değerlendirme........................................................................................................................ 16
+6.     YARIŞMA TAKVİMİ ....................................................................................................................... 17
+7.     İLETİŞİM ........................................................................................................................................ 18
+8.     GENEL KURALLAR ....................................................................................................................... 18
+9.     ETİK KURALLAR ........................................................................................................................... 18
+Sorumluluk Beyanı ................................................................................................................................. 18
+
+
+
+
+                                                                             2
+VERSİYONLAR
+Tablo 1 Versiyonlar Tablosu
+
+
+         VERSİYON              TARİH           Açıklama
+              1.0             05.02.2025       İlk Versiyon
+                                           6. YARIŞMA TAKVİMİ -
+              1.1             14.02.2025
+                                            Metin Güncellemesi
+
+
+
+
+                                  3
+1. YARIŞMA AMACI
+Otonom araçlar artık 90’lı yılların bilim kurgu dizilerinde resmedildiği gibi hayal ürünü
+olmaktan çıkıyor. Günümüzde birçok teknoloji şirketi bu konu üzerinde büyük
+bütçelerle araştırma ve geliştirme faaliyetleri yürütüyorlar. Hali hazırda ABD’nin bazı
+pilot bölgelerinde şehir trafiğinde otonom araçlar seyir halindedir. Otomatik sürüş /
+Otonom araç konusundaki gelişmeler hızlanarak devam edecek ve 2030 ve
+sonrasında bu konseptler hareketlilik kavramında ciddi yer alacaktır.
+Türkiye İstatistik Kurumu’nun (TÜİK) 2022 verilerine göre trafik kazalarına sebep olan
+kusurlar içinde sürücü kusurları, %86,8 gibi büyük bir oran teşkil etmektedir. Otonom
+araçlar, insan hatasını en aza indirdiği için trafik güvenliğine katkısı oldukça yüksektir.
+Ayrıca, trafik yoğunluğunda büyük önem arz eden uygun olmayan güzergâh seçimi,
+bencil sürücü davranışları gibi etkenler otonom araçlar sayesinde giderilebilir. Bu
+yüzden, otonom araçlar, geleceğin şehirlerinin vazgeçilmez unsurları olacaklardır.
+TÜBİTAK ve Bilişim Vadisi tarafından TEKNOFEST Teknoloji Yarışmaları kapsamında
+düzenlenen Robotaksi-Binek Otonom Araç yarışması mobilite araçların, sensör
+teknolojilerinin, otonom kontrol algoritmaları ve yapay zekâ gibi konularında
+ekosistemin gelişmesini sağlamanın yanında otonom araç teknolojilerinin ülkemizde
+geliştirilmesini sağlamak amacıyla yapılmaktadır.
+Yarışma şartnamesinin geri kalan kısmında Robotaksi-Binek Otonom Araç,
+“Robotaksi” ismi kullanarak bahsedilecektir.
+
+1.1. Yarışma Kategorileri
+Yarışma, Özgün Araç Kategorisi ve Hazır Araç Kategorisi olmak üzere iki kategoriden
+oluşacaktır.
+
+1.1.1.        Özgün Araç Kategorisi
+Takımlar hibe edilmiş veya daha önceden üretilmiş araçlar ile bu kategoriye katılım
+sağlayabilir. Lakin aracın bütün yapısalından ve teknik şartnameye uygunluğundan
+takım sorumludur.
+
+1.1.2.        Hazır Araç Kategorisi
+TEKNOFEST Komitesi tarafından sadece yazılımsal geliştirmeler yapmak isteyen
+takımlara, yarışmada kullanılabilmesi için belli sayıda kablo ile sürüşe (drive-by-wire)
+sahip tam donanımlı elektrikli bir araç platformu sağlanacaktır. Belirli sayıda olacak
+olan tam donanımlı araç platformları takım bazında sağlanmayacak olup ortak
+kullanıma açılacaktır. Tam donanımlı araçta uzaklık sensörü, kamera, haberleşme
+sistemi, kontrol kartı gibi donanımların olması planlanmaktadır. Takımların araçta
+bulunan gerekli sensörlerden gelen verileri işleyerek gerekli algoritma yazılımlarını
+kendilerinin geliştirmesi gerekmektedir.
+Tam donanımlı araçların hazırlık aşaması tamamlandıktan sonra araçlar belirli
+aşamayı geçen takımların kullanımına sunulacaktır. Araçların kullanım süreleri
+randevu sistemi ile ayarlanacak olup takımlar o sürelerde yazılımlarını araçlar üzerinde
+
+
+
+
+                                            4
+   test edebileceklerdir. Araç platformuna ait teknik özellikler ve kullanım kılavuzu daha
+   sonra takımlar ile paylaşılacaktır.
+   Yarışma görevleri iki kategori için de aynı olup parkurda levha ve trafik ışıklarında
+   değişiklikler yapılabilecektir.
+
+   1.2. Yarışma Süreci
+✓ Teknik Yeterlilik Form Aşaması
+✓ Kritik Tasarım Raporu
+✓ Araç Test Videosu, Simülasyon ve Sunum
+✓ Final
+
+   1.3. Yarışmaya Katılım Koşulları
+   1.3.1.         Takım
+   ✦ Otonom araçların tasarımı ve geliştirilmesi farklı disiplinler içerdiği için katılımcıların
+   yarışmaya takım olarak katılımı zorunludur.
+
+   ✦ Yarışmaya; lise, üniversite öğrencileri ve mezunları takım halinde katılabilir. Özel
+   Sektör olarak katılım yapılmamaktadır.
+
+   ✦ Takımların okul (üniversite/lise) kulübü olması zorunluluğu yoktur.
+
+   ✦ Takımlar, tek bir okuldan oluşturulabileceği gibi bir veya birden fazla
+   lise/yükseköğretim öğrencisinin bir araya gelmesi ile karma bir takım olarak da
+   oluşturulabilir.
+
+   ✦ Takımlar;
+   O Hazır Araç kategorisinde en az 3 en fazla 25 kişiden oluşmalıdır. (Sayılara danışman
+   dahil değildir.)
+   O Özgün Araç kategorisinde en az 5 en fazla 25 kişiden oluşmalıdır. (Sayılara
+   danışman dahil değildir.)
+   Finalde yer alabilecek takım üye sayısı daha sonra açıklanacaktır.
+
+   1.3.2.         Başvuru
+   ✦ Yarışmaya yapılan başvurular, Özgün Araç ve Hazır Araç Kategorilerinde ayrı
+   şekilde alınır.
+
+   ✦ Başvuru yapacak olan takımlar kategorilerden sadece birisine kayıt yaptırabilirler.
+   ✦ Bir takımın üyesi Robotaksi Yarışması kapsamında başka bir takımının üyesi olarak
+   bulunamaz.
+
+   ✦ Özgün Araç kategorisi üzerinden başvuru yapacak her takım yarışmaya sadece tek
+
+
+
+
+                                                5
+bir araç ile katılabilir.
+
+1.3.3.          Eğitim Seviyesi-Danışman
+✦ Lise seviyesindeki takımların bir danışman bulundurmaları zorunludur.
+✦ Finale kalan takımların onaylı öğrenci belgelerini, danışmanlar için ise öğretim
+üyesi/görevlisi, araştırma görevlisi veya öğretmen olduklarını gösteren onaylı belgeni
+KYS platformunda açılacak alana yüklemeleri gerekmektedir.
+
+✦ Lisans, lisansüstü öğrencileri ve mezun seviyesindeki takımların danışman
+zorunluluğu yoktur, bir öğretim görevlisini/üyesini veya araştırma görevlisini danışman
+olarak alabilir.
+
+✦ Takım içinde bulunan üyelerin arasındaki en yüksek eğitim seviyesi takımın eğitim
+seviyesini belirler.
+
+✦ Danışmanın yazılı olarak ilgili eğitim/öğretim kurumlarından alınacak görevlendirme
+yazısını TEKNOFEST Komitesine iletmek zorundadırlar. (Danışman değiştirmek içinde
+bu evrakın verilmesi zorundadır.)
+
+✦ Danışman değişikliği olması durumunda yazılı olarak ilgili TEKNOFEST Komitesine
+iletmek zorundadırlar.
+
+✦ Her takımın yalnızca bir danışmanı olabilir.
+
+✦ Bir danışman sadece tek bir takıma danışmanlık yapabilir.
+✦ Danışmanının takımdaki rolü projede ihtiyaç duyulacak akademik desteği
+sağlayarak takım üyelerinin problemlerine çözüm üretebilmeleri için yol göstermektir.
+
+1.3.4.          Süreç Bilgileri
+✦ Yarışma süreci boyunca TEKNOFEST yarışmalar komitesi tarafından yapılacak
+olan tüm bilgilendirmeler takımın iletişim sorumlusu olarak belirlediği kişiye
+yapılacaktır. Bu sebeple her takım bir iletişim sorumlusu belirlemelidir. (KYS’ ye kayıtlı
+e-mail adresine bilgilendirme yapılmaktadır.)
+
+✦ Süreçlerin (Başvuru Yapma, Form/Sunum Son Yükleme Tarihi, İtiraz Süreci,
+Doldurulması Gereken Form vb.) takibi iletişim sorumlusunun görevi olup iletişim
+sorumlusundan kaynaklı gecikmeler ve/veya aksaklıklardan TEKNOFEST yarışmalar
+komitesi sorumlu değildir.
+✦ Yarışma kapsamında gerekli tüm süreçler (Başvuru, Rapor Alımı, Rapor Sonuçları,
+Maddi Destek Başvurusu, İtiraz Süreçleri, Üye ekleme/çıkarma işlemleri vb.) KYS
+sistemi üzerinden yapılmaktadır. Takımların KYS portalı üzerinden süreçleri takip
+etmesi gerekmektedir.
+✦ Yarışma süreci boyunca başvuru yapma, form/sunum yükleme, itiraz süreci ve form
+doldurma işlemleri takım kaptanı ve/veya danışmanın yetkisi dahilinde olup yarışma
+süreçleri bu kişiler üzerinden yönetilmektedir.
+
+
+
+
+                                            6
+✦ Üye ekleme/çıkarma işlemleri KTR son teslim tarihine kadar yapılmaktadır. KTR
+tesliminden sonra takımlarda değişiklik yapılamaz.
+
+1.3.5.        Diğer
+✦ Geçen senelerde finalist olan takımların projelerini/araçlarını/otonom yazılımlarını
+geliştirmiş olması ve yarışmaya daha önce katıldığına dair bilgiyi raporlarında
+belirtmesi gerekmektedir.
+
+✦ Yukarıdaki şartları sağlamayan takımların başvuruları geçersiz sayılacaktır.
+
+✦ Başvurular, Havacılık, Uzay ve Teknoloji Festivali TEKNOFEST Teknoloji
+Yarışmaları resmî web sitesi (www.teknofest.org) üzerinden yapılacaktır. Bu tarihten
+sonra (20 Şubat 2025) hiçbir başvuru kabul edilmeyecektir.
+
+2. YARIŞMA GÖREVİ
+Bu bölüm, Robotaksi’nin otonom sürüş kabiliyetlerini kent içi trafik koşulları ve mobilite
+ihtiyaçlarını simüle eden gerçekçi bir test parkurunda sergileyeceği görevleri tanımlar.
+Görevler, şehir içi ulaşım senaryolarını modelleyen bir akış çerçevesinde
+gerçekleştirilecektir. Yarışma gününde, katılımcılara parkura ve görevlere ilişkin kritik
+konum bilgileri JSON dosyasında paylaşılacaktır. BU JSON dosyasının formatı, Teknik
+şartnamede detaylandırılacaktır. Konum bilgileri ve tanımlar aşağıdaki gibidir.
+Referans Noktası (Datum Point): Parkur içinde önceden belirlenmiş bir GPS
+koordinatıdır. Bütün konumlandırma, ölçümleme ve değerlendirmelerin temel
+referansıdır.
+Araç Başlangıç Noktası: Aracın görev başlangıcında bulunduğu GPS koordinatı ve
+kuzey referansına (north heading) göre kafa açısı bilgilerinden oluşur.
+Araç Park Bölgesi Noktası: Aracın park edebileceği alanların girişini belirten GPS
+koordinatları ve kuzey referansına göre kafa açısını belirtir. Bu konum aracın park
+etmesi gereken noktayı tanımlamaz. Parkur açıklamasında bulunan park bölgesinin
+giriş noktasını tanımlar. Araç, bu konuma ulaştıktan sonra uygun bir park alanına park
+etmesi gerekmektedir.
+Görev Noktası/Noktaları: Göreve özel tanımlanacak GPS koordinatları ve kuzey
+referansına göre kafa açılarını içerir. İlgili görev senaryosuna göre bir veya birden fazla
+nokta verilebilir. Örneğin, yolcu indirme-bindirme senaryosunda aracın yolcuyu alacağı
+veya bırakacağı noktalar bu şekilde tanımlanabilir. Aracın son hedef noktası da bu
+şekilde tanımlanabilir. Bir görevde hakem kurulu tarafından tanımlanmış herhangi bir
+görev noktası yoksa, bu bilgi paylaşılmayacaktır.
+Not: Verilen konum bilgileri, aracın ön tarafının en uç noktasının konumunu ve aracın
+yönünü ifade eder. Tolerans bilgileri teknik şartnamede detaylı işlenecektir.
+Aşağıda, yarışma günlerinde sunulabilecek örnek görev senaryoları yer almaktadır.
+Hakem kurulu bu çerçeveyi genişletebilir veya revize edebilir. Senaryo tanımları teknik
+şartnamede detaylandırılacaktır.
+
+
+
+
+                                            7
+•   Örnek Senaryo 1: Araç, belirlenen başlangıç noktasından hareket ederek parkur
+    üzerinde önceden tanımlanmış farklı noktalarda yolcu indirme ve bindirme işlemlerini
+    gerçekleştirecektir. Araç, her yolcuyu belirlenen konumlara güvenli bir şekilde alıp
+    bırakacak ve bu süreç boyunca trafik kurallarına uygun hareket edecektir. Görev,
+    aracın belirtilen işlemleri tamamladıktan sonra park alanına ulaşarak park etmesi ile
+    tamamlanacaktır.
+•   Örnek Senaryo 2: Araç, hareketli veya sabit engeller, kısmen veya tamamen kapalı
+    yollar gibi dinamik trafik koşullarını içeren eden bir senaryoyu tamamlayacaktır. Bu
+    görevde, araç belirtilen trafik durumlarına uygun şekilde tepki verecek, engelleri
+    güvenli bir şekilde geçecek ve trafik kurallarına uyacaktır. Görev, aracın belirtilen park
+    alanına ulaşarak uygun bir şekilde park etmesi ile tamamlanacaktır.
+•   Örnek Senaryo 3: Araç, başlangıç noktasından hareket ederek önceden tanımlanmış
+    yolcu alma (bindirme) noktasına ulaşacaktır. Araca sanal yolcu alındıktan sonra, araç
+    belirtilen yolcu indirme noktasına doğru hareket edecek ve bu noktada yolcuyu
+    indirecektir. Görev, aracın belirtilen park alanına ulaşarak doğru şekilde park etmesi ile
+    tamamlanacaktır.
+    Önemli: Araçlar bu süreç boyunca trafik kurallarına kesinlikle uymalıdır. Şerit ve yön
+    ihlali yapılmamalı, hız sınırları aşılmamalı, araç herhangi bir yere sürtme ya da
+    dokunma yapmadan güvenli bir sürüş sağlamalıdır. Ayrıntılı kurallar teknik şartnamede
+    tanımlanacaktır.
+    Bu senaryoların nasıl puanlanacağı, kural ihlallerinin hangi durumlarda ceza
+    gerektireceği, diskalifiye ölçütlerinin neler olduğu, “Trafik kurallarına uymama” gibi
+    ihlallere ilişkin yaptırımlar (diskalifiye, puan kesintisi vb.) teknik şartnamede açık bir
+    şekilde belirtilecektir.
+    Özetle, Robotaksiden gerçek bir sürücünün davranışlarını taklit ederek tanımlanan
+    senaryoları eksiksiz uygulaması; trafik kurallarına uyarak, belirtilen GPS noktalarına
+    doğru kafa açılarıyla ulaşarak, güvenli ve hatasız bir sürüş deneyimi sergilemesi
+    beklenmektedir. Görevlerin kapsamı ve zorluk derecesi her yarışma gününde hakem
+    kurulu tarafından açıklanacaktır.
+
+    2.1. Teknik Şartname
+    Teknik şartname, yarışmanın tüm kurallarını, araç gereksinimlerini ve olası görevlerini
+    ayrıntılı bir şekilde tanımlayacak ve test edilebilir, ölçülebilir kriterler sunacaktır. Teknik
+    şartnamede, “Uzaktan Acil Müdahale Sistemi” (UMS) ve “Fren” sistemi gibi başlıklarda
+    araçların durma mesafesi, frenleme tepki süresi gibi belirli standartlar ve hedeflenen
+    gereklilikler detaylı olarak açıklanacaktır. Ayrıca, yarışma günü katılımcılara
+    sağlanacak görev ve konum bilgisi JSON formatında sunulacak, bu JSON’un taslak
+    örneği, alan adları, veri tipleri ve örnek içerikleri teknik şartnamede yer alacaktır.
+    Puanlama sistemine ilişkin olarak, puanların nasıl toplandığı, hatalardan veya eksik
+    görevlerden doğan puan kırımları ve “Başarılı görev tamamlama” kriterleri de
+    netleştirilecektir. Kabul edilebilir değerler, tolerans aralıkları ve hata sınırları açıkça
+    tanımlanacak ve bu sayede belirlenen kriterlerin doğrulanabilirliği sağlanacaktır.
+    Teknik şartname daha sonra duyurulacaktır.
+
+
+
+
+                                                  8
+2.2. Parkur
+Robotaksi tam ölçekli bir parkurda görev yapacaktır. Yarışma parkuru Şekil 1’de
+görülmektedir.
+
+
+
+
+          Şekil 1 Robotaksi-Binek Otonom Araç Yarışması Parkur Alanı
+Normal trafikte olduğu gibi aracın şerit içinde hareket etmesi beklenecektir. Parkurun
+başlangıç noktası yarışma günü hakem kurulu tarafından belirlenen noktalardan biri
+olacaktır.
+Bunun dışında parkurda çeşitli trafik işaret ve işaretçileri, engeller ve diğer araçlar
+olabilecektir. Tipik olarak yön işaretleri, dönüş yasağı işaretleri, yaya geçidi işaretleri,
+trafik ışıkları, dur ve diğer trafik işaretleri olabilecektir.
+Robotaksinin izleyeceği yol şeritlerle belirlenecektir. Bu şeritlere temas etmeden ve
+görüntüleme aygıtlarının görüntülemesini engellemeyecek şekilde güvenlik amaçlı
+bariyerler olacaktır. Alanı çevreleyecek bariyerler çeşitli renk ve ebatlarda olabilir. Şeride
+taşmayacak şekilde, şeridin dışında herhangi bir noktada bulunabilir. Parkur
+çevresindeki bariyerlerin konumu ve yönelimi yarışma anında değişikliklere uğrayabilir.
+Robotaksi park alanı aracın dik park edebileceği şekilde düzenlenmiştir. Park yerlerinin
+giriş kısımları açık olacaktır. Diğer üç tarafı düz ve kesintisiz beyaz çizgilerle
+belirtilecektir. Park alanının çevresinde yukarıda bahsedilen bariyerler bulunabilir.
+Yarışma günü veya saatine bağlı olarak parkurda hava (yağmur, sis, güneş vb.) ve ışık
+koşulları (gölge vb.) değişiklik gösterebilir. Robotaksinin, bu değişken çevre koşullarına
+gerçek bir sürücü gibi adapte olması ve görevlerini başarılı bir şekilde tamamlaması
+beklenmektedir.
+
+Parkurun şematik çizimi veya temel ölçüleri, teknik şartnamede yer alacaktır.
+
+
+
+
+                                              9
+2.3. Trafik İşaretleri
+Parkur boyunca çeşitli trafik işaretleri kullanılacak ve Robotaksinin bu işaretlere uyması
+beklenecektir. İşaret ve işaretçiler Karayolları Genel Müdürlüğü Trafik İşaretleri
+standartlarına uygun olacaktır.
+Bu standartlara aşağıdaki bağlantıdan ulaşılabilir.
+https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Trafik/IsaretlerElKit
+abi/TrafikIsaretleriElKitabi2015.pdf
+Kullanılacak trafik işaret ve işaretçilerinin tam listesi, yola göre bulunabileceği konum
+ve yönelim bilgileri teknik şartnamede detaylandırılacaktır.
+
+2.4. Engeller
+Yarışmada engel olarak plastik yol bariyerleri, farklı boyutlarda trafik konileri ve
+hareketli objeler kullanılabilir. Bu engeller; araçları, yayaları, yol çalışmasını veya
+benzeri, yolu kullanıma kısmi veya tam olarak kapatacak engelleri temsil edeceklerdir.
+Kullanılacak engellerin boyutları, şekilleri ve düzenlemeleri belirli bir standarda sahip
+olmayacağından, araçların bu çeşitlilik karşısında adapte olabilmesi beklenir. Yolda
+engel bulunması durumunda araç, engellere ve pist çevresindeki bariyerlere
+çarpmadan, sürtmeden ve trafik kurallarına uygun şekilde güvenli bir sakınma
+manevrası yapmalıdır. Sakınma manevrasının mümkün olmadığı durumlarda araçlar
+yeniden planlama yapabilir. Araçların engeller karşısındaki davranışları, insan
+sürücülerle kıyaslanarak değerlendirilir. Örneğin, bir engelden sakınma sırasında
+aracın aldığı kararlar ve uyguladığı manevraların, gerçek bir sürücünün vereceği
+tepkilerle uyumlu olması beklenir. Yarışma boyunca araç, her türlü engeli algılayarak
+trafik akışını aksatmadan ve güvenli bir şekilde yoluna devam etmelidir. Bu süreçte
+sergilenen karar verme yeteneği, sürüş güvenliği ve trafik kurallarına uygunluk,
+değerlendirme kriterleri arasında yer alacaktır.
+
+3. YARIŞMA RAPORLARI VE SUNUMLARI
+Yarışma kapsamında takımlardan Teknik Yeterlilik Formu ve Kritik Tasarım Raporu
+olmak üzere iki adet rapor istenecektir. Ayrıca hakem heyetinin final zamanı alacağı
+karar doğrultusunda takımların yarışma sonunda sunum yapmaları istenilebilir. Kritik
+Tasarım Raporu sürecini başarı ile tamamlayan takımlardan Araç Test Videosu,
+Simülasyon ve Sunum yapmaları talep edilecektir.
+Bu rapor ve sunumlar hakem heyeti tarafından istendiği takdirde değerlendirmede yer
+alacaktır.
+
+3.1. Teknik Yeterlilik Formu
+Robotaksi yarışmasına başvuran her takım, yarışma takviminde belirtilen son tarihe
+kadar teknik yeterlilik formunu hazırlayıp, danışman ve takım kaptanı tarafından KYS’
+de ilgili alana yüklemekle yükümlüdürler. Belirtilen son tarihe kadar formunu
+ulaştırmayan takımlar başarısız sayılacak ve yarışmaya katılma hakları
+bulunmayacaktır.
+
+
+
+
+                                           10
+Formun takvimde belirtilen gün içerisinde saat 17:00’ a kadar KYS sistemi üzerinden
+yüklenmesi gerekmektedir. Takvim ve saatlerde TEKNOFEST Yarışmalar Komitesi
+tarafından değişiklik yapma hakkı bulunmaktadır.
+Robotaksi yarışmasına başvuran takımlar, teknik yeterlilik formunu, Teknik Yeterlilik
+Form Şablonuna uygun olarak hazırlayacaklardır. Form şablonunda talep edilen
+bilgileri raporlarında belirtmeyen takımlar elenecektir.
+Robotaksi yarışmasına başvuran takımların teknik Yeterlilik formları, Robotaksi
+Yarışması Danışma Kurulu ve Hakemleri tarafından “Teknik Yeterlilik Form Şablonu”
+na uygun olarak değerlendirilecektir. Yapılan değerlendirmeler sonucunda bir sonraki
+aşamaya kabul edilecek takımlar belirlenecek, yarışmaya kabul edilmeyecek takımlar
+ise elenecektir. Teknik Yeterlilik formu değerlendirme sonuçları, yarışma takviminde
+belirtilen tarihte takımlara açıklanacaktır.
+
+3.2. Kritik Tasarım Raporu
+Teknik Yeterlilik Form sürecini başarı ile tamamlayan takımlar, yarışma takviminde
+belirtilen son tarihe kadar kritik tasarım raporlarını hazırlayıp, danışman ve takım
+kaptanı tarafından KYS’ de ilgili alana yüklemekle yükümlüdürler. Belirtilen son tarihe
+kadar raporlarını ulaştırmayan takımlar başarısız sayılacak ve yarışmaya katılma
+hakları bulunmayacaktır.
+Raporun takvimde belirtilen gün içerisinde saat: 17:00’ a kadar KYS sistemi üzerinden
+yüklenmesi gerekmektedir. Takvim ve saatlerde TEKNOFEST Yarışmalar Komitesi
+tarafından değişiklik yapma hakkı bulunmaktadır.
+Robotaksi yarışmasına başvuran takımlar, kritik tasarım raporlarını, Kritik Tasarım
+Rapor Şablonuna uygun olarak hazırlayacaklardır. Rapor şablonunda talep edilen
+bilgileri raporlarında belirtmeyen takımlar başarısız sayılacaktır.
+Robotaksi yarışmasında katılan takımların kritik tasarım raporları, Robotaksi Yarışması
+Danışma Kurulu ve Hakemleri tarafından “Kritik Tasarım Rapor Şablonu”na uygun
+olarak değerlendirilecektir ve puanlandırılacaktır. Yapılan değerlendirmeler sonucunda
+yarışmaya kabul edilecek takımlar belirlenecek, yarışmaya kabul edilmeyecek takımlar
+ise elenecektir. Kritik tasarım raporlarının değerlendirme sonuçları, yarışma takviminde
+belirtilen tarihte takımlara açıklanacaktır.
+Kritik Tasarım Raporu sonuçlarına göre belirlenecek baraj puanının üstünde yer alan
+takımlar yarışmaya devam edecek olup, Yarışma Danışma Kurulu ve Hakem Heyeti
+tarafından belirlenen sayıda takıma maddi destek verilecektir. Baraj puanının üzerinde
+yer alan diğer takımlar maddi desteksiz olarak sürece devam edecektir.
+
+3.3. Araç Test Videosu – Simülasyon
+Araç Test Videosu, özgün araç kategorisi için, yarışmaya katılacak aracın güvenli bir
+şekilde çalıştığının gösterilmesi, otonom olarak hareket etmesi, istenilen yönde hareket
+edebildiğini gösteren kesintisiz bir videodur. Video içeriği iki alt video içerir. Birinci alt
+video sürücü koltuğunu ve direksiyonu tam kadraja alır. İkinci alt video araç dışından
+aracı ve hareketini tam olarak kadraja alır. Her iki videoda aynı zamanda çekilmelidir.
+
+
+
+
+                                             11
+Araç Test Videosunda aracın yol boyunca otonom olarak 20 metre gidebildiğinin ve
+engel ile karşılaştığında durduğunun gösterilmesi gerekmektedir. Aracın otonom
+olarak harekete başlamasından itibaren aracın düz yol üzerinde bir noktadan başka bir
+noktaya hareket edebildiğinin gösterilmesi gerekmektedir. Videonun çözünürlüğü en
+az 720p, toplam süresi ise en az 2 dakika, en fazla 5 dakika olmalıdır. Yarışmaya
+katılabilmek için videosunun yarışma takviminde belirtilen tarihe kadar gönderilmesi
+zorunludur.
+Takımlar, genel ve teknik şartnamede tanımlanan kurallara ve Robotaksi yarışması
+görev tanımlarına uygun bir simülasyon gerçekleştirecek ve bu simülasyonu
+değerlendirme kuruluna rapor olarak sunacaktır. Simülasyonun temel amacı,
+TEKNOFEST Robotaksi Yarışması'nda yer alan görevlerin başarıyla gerçekleştirilmesi
+için gerekli olan otonom araç yeteneklerinin ekipler tarafından doğrulanmasıdır.
+Takımlar, simülasyon ortamını seçme konusunda tamamen serbesttir ve Gazebo,
+Unity, Unreal Engine, LGSVL/Simulator, Matlab gibi herhangi bir benzetim platformu
+kullanılabilir. Ancak, simülasyon ortamında geliştirilen algoritma ve yazılımların,
+yarışmaya katılım durumunda gerçek araç üzerinde çalıştırılabilir ve uyarlanabilir
+olması beklenmektedir. Simülasyon sırasında kullanılacak araç ve sensör ekipmanları
+(örneğin, LIDAR, RADAR, Kamera, GPS), takımların Kritik Tasarım Raporu'nda
+belirttiği araç tasarımı ile uyumlu olmalıdır. Kritik Tasarım Raporu’nda belirtilmeyen
+sensörlerin simülasyonda kullanımı yasaktır.
+Simülasyon ortamında, yarışma görevlerini eksiksiz ve doğru bir şekilde
+gerçekleştirebilecek modeller oluşturulmalıdır. Bu modeller, Robotaksi Yarışması'nda
+belirtilen görevleri yerine getirebilecek yetkinlikte tasarlanmalıdır. Simülasyon
+süreçlerinde, navigasyon, algılama, kontrol, planlama gibi temel otonom sistem
+algoritmalarının doğrulanabilir ve test edilebilir olduğu bir ortam tasarlanması
+gerekmektedir. Kullanılan simülasyon ortamı, bu kriterlerin uygulanabilirliğine göre
+değerlendirilecektir.
+Takımlar, geliştirdikleri simülasyon ortamını ve bu ortamda gerçekleştirdikleri
+görevlerin icrasını içeren bir sunumu, simülasyon sırasında elde edilen test verileri ve
+araç performansına dair bir video ile birlikte hakem heyetine sunmalıdır. Gerektiğinde,
+simülasyon sonuçları ile gerçek araç test sonuçlarının karşılaştırılması da istenebilir.
+Sunumlar çevrimiçi olarak gerçekleştirilmeyecek olup, simülasyon anlatımının video
+formatında hazırlanarak sisteme yüklenmesi gerekmektedir.
+Simülasyon Raporu ve Sunumu ile ilgili detaylar daha sonra paylaşılacaktır.
+Bu süreci başarı ile tamamlayan tamamlayıp finale katılmaya hak kazanan takımlar
+yarışma takviminde belirtilen tarihte açıklanacaktır.
+
+4. DESTEKLER VE ÖDÜLLER
+4.1. Destekler
+4.1.1.       Özgün Araç Kategorisi
+✦ Kritik tasarım sonuçları sonucu bir sonraki aşamaya geçen takımlar destek almaya
+
+
+
+                                          12
+hak kazanacaklardır. Destekler için yarışmaya ilk defa katılma şartı aranmaz. Bireyler
+sadece bir ekipte yer alabileceklerdir.
+
+✦ KTR aşamasını geçen takımlar arasında aldıkları puanlara göre bir sıralama yapılır.
+Sıralamada yarışma komitesi tarafından belirlenen sayıdaki takımlara belirlenecek
+miktarlarda destek sağlanacaktır.
+
+✦ Destek üst limiti 100.000 TL’dir. Destek üst limitini aşmamak kaydıyla takımlar,
+bütçelerini belirlerler. Belirlenen bütçeler değerlendirilir ve onaylanması halinde ilgili
+tutar Takım Sorumlusu banka hesabına aktarılır.
+
+4.1.2.          Hazır Araç Kategorisi
+Kritik Tasarım Raporu sonuçlarına göre bir sonraki aşamaya geçmeye hak kazanan
+takımlara, yarışma öncesinde randevu sistemi ile üzerinde çalışabilecekleri ve yarışma
+esnasında belirli bir sıraya göre kullanabilecekleri belli sayıda tam donanımlı drive by
+wire araç platformu sağlanacaktır. İlgili araç platformlarınız Haziran 2025 tarihi itibariyle
+hazır olması planlanmaktadır. Bu tarih o günkü şartlara veya bazı teknik süreçlere göre
+daha ileri bir tarihe alınabilir. Hazır araçların Bilişim Vadisi alanında bulunması ve
+takımların randevu sistemi ile araç platformu üzerinde çalışmaları ve yarışma
+hazırlıklarını yapmaları planlanmaktadır.
+
+4.2. Ödüller ve Kuralları
+Görevlerini başarıyla     tamamlayan      takımlar   ödül    sıralamasına    girmeye      hak
+kazanacaktır.
+Aşağıdaki tabloda belirtilen ödüller, ödül almaya hak kazanan takımlara verilecek
+toplam tutarı göstermektedir, bireysel ödüllendirme yapılmayacaktır. Birincilik, ikincilik
+ve üçüncülük ödülleri, takım üyeleri toplam sayısına (danışman hariç) göre eşit
+miktarda bölünerek her şahsın belirteceği banka hesabına yatırılacaktır. Ödül almaya
+hak kazanan takım danışmanları aşağıdaki birincilik, ikincilik, üçüncülük ödül
+tutarlarından faydalanamaz, danışmanlara verilecek ödüller aşağıdaki tabloda ayrıca
+belirtilmiştir.
+
+     Derece        Özgün Araç Kategorisi          Hazır Araç Kategorisi       Danışman
+
+      Birinci               ₺250.000                    ₺200.000                ₺15.000
+
+      İkinci                ₺200.000                    ₺175.000                ₺12.000
+
+     Üçüncü                 ₺175.000                    ₺150.000                ₺10.000
+                                    Tablo 1 - Ödüller
+Ödül için minimum koşulları sağlamayan ancak aşağıda belirtilen ödül kriterlerine göre
+mansiyon almaya hak kazanan takımlara Danışma kurulunun uygun göreceği oranda
+mansiyon ödülü verilecektir. Ödül alma kriterleri ve koşulları teknik şartnamede
+detaylandırılacaktır.
+En Özgün Yazılım Ödülü: Rapor aşamaları ile birlikte Yarışma Değerlendirme Kurulu
+
+
+
+
+                                             13
+   tarafından yazılım değerlendirmelerini yapmaktadır. Belirtilen ödül prestij amaçlı olup
+   bir maddi karşılığı bulunmamaktadır.
+   En İyi Araç Tasarımı Ödülü: Araç tasarımları ile katma değer sağlayan, maliyet ve
+   performans optimizasyonu sağlayan yarışmacı takımlar bu ödül için değerlendirilmeye
+   alınacaktır. Ödül yalnızca Özgün Araç Kategorisinde verilecek olup, prestij amaçlıdır.
+   Maddi bir karşılığı bulunmamaktadır.
+   En İyi Takım Ruhu Ödülü: Yarışma alanında bulunan tüm yarışmacı takımlar bu ödül
+   için değerlendirilmeye alınacaktır. Belirtilen ödül prestij amaçlı olup bir maddi karşılığı
+   bulunmamaktadır.
+
+   5. YARIŞMA
+   TEKNOFEST 2025 kapsamında yapılacak olan Robotaksi yarışma faaliyetleri, yarışma
+   öncesi faaliyetler ve yarışma sırasında yapılacak faaliyetler olmak üzere iki ana
+   kısımdan oluşmaktadır.
+   Robotaksi kategorisinde yarışmaya başvuran takımlar, yarışma öncesinde; teknik
+   yeterlilik formu teslimi, kritik tasarım raporu teslimi ve araç test videosu-simülasyon-
+   sunum faaliyetlerini icra edeceklerdir. Yarışma sırasında ise; teknik kontroller,
+   yarışmaların icrası faaliyetleri gerçekleştirilecektir.
+   Gerçekleştirilen faaliyetler, Robotaksi Yarışması Danışma Kurulu ve Hakemleri
+   tarafından değerlendirmeye tabi olacaktır. Yapılan değerlendirmeler sonucunda;
+   yarışmaya kabul edilecek takımlar, destek alacak takımlar, yarışmaya katılacak
+   takımlar ve ödül almaya hak kazanan takımlar belirlenecektir.
+   Yarışma faaliyetlerinde belirtilen hususları yerine getirmeyen takımlar başarısız
+   sayılacak; yaraşmaya kabul alma, destek alma, yarışmaya katılma veya ödül alma
+   hakları bulunmayacaktır.
+   Yarışma süresi boyunca otonomi, otomatik kontrol sistemleri gibi teknik konularda
+   takımlar Yarışma Komitesi’nde görevli ekip tarafından monitör edilerek mentörlük
+   desteği verilecektir. Ayrıca, takımların daha iyi gelişim gösterebilmesi için de Yarışma
+   Komitesi tarafından organize edilecek tesislerde ve/veya internet üzerinden (çevrimiçi)
+   kontrol ve simülasyon sistemleri, otonomi, algılayıcı sistemleri gibi konularda eğitim
+   verilerek bilgi paylaşımı ve gelişim toplantıları düzenlenebilir.
+
+   5.1. Yarışma Öncesi Yapılacak Faaliyetler
+   Yarışma öncesi yapılacak faaliyetler, takımların finalden önce gerçekleştirecekleri
+   faaliyetleri açıklamaktadır.
+❖ Teknik Yeterlilik Formu Teslimi
+❖ Kritik Tasarım Raporunun Teslimi
+❖ Araç Test Videosu-Simülasyon-Sunum
+
+
+
+
+                                               14
+5.1.1.        Hazır Araç Kategorisi Araç Eğitimi
+Hazır Araç kategorisi kapsamında yarışmacılara daha sonra açıklanacak tarihlerde
+araç ile ilgili eğitimler verilecektir. Yarışma Danışma Kurulu ve Hakem Heyeti
+tarafından gerekli görülmesi halinde bu eğitimlerin ardından takımların bu konuda
+yeterliliklerinin ölçüleceği bir değerlendirme yapılacaktır.
+
+5.2. Yarışma Sırasında Yapılacak Faaliyetler
+Yarışma sırasında yapılacak faaliyetler, yarışmanın aktif zamanında takımların
+gerçekleştirecekleri faaliyetleri açıklamaktadır.
+Robotaksi Yarışması Danışma Kurulu Üyeleri ve Hakemleri, faaliyetlerin öncesinde,
+yarışmaya hak kazanan bütün takım sorumluları ile birlikte toplantı yapacaktır. Bu
+toplantıda; yarışmalar sırasında uyulması gereken kurallar, emniyetli davranış usulleri
+ve acil durumlar ile ilgili bilgilendirme yapılacaktır.
+Toplantıya katılacak olan takım sorumluları, takımlarındaki bütün üyelere, toplantı
+sırasında aktarılan bütün kural ve usulleri aktaracak ve bunlara uyulmasını
+sağlayacaktır. Aksi bir durum veya herhangi bir ihlal tespit edildiğinde, ilgili takım
+başarısız sayılabilecek veya elenebilecektir. Bu konuda yetki, Robotaksi Yarışması
+Danışma Kurulu Üyeleri ve Hakemleri’ ne aittir.
+Takımların sıra ile ilgili yapacakları itiraz veya önerilerini, teknik kontroller başlamadan
+önce, Robotaksi Yarışması Danışma Kurulu Üyeleri ve hakemlerine yazılı olarak
+iletmeleri gerekmektedir. Teknik kontrollere başlandıktan sonra yapılan itiraz ve
+öneriler değerlendirilmeyecektir. Bu konuda karar verme yetkisi Robotaksi Yarışması
+Danışma Kurulu Üyeleri ve hakemlerine aittir.
+Yarışmalar sırasında vuku bulan durumlar ile ilgili karar verme yetkisi, Robotaksi
+Yarışması Danışma Kurulu Üyeleri ve Hakemleri ‘ne aittir.
+
+5.2.1.        Teknik Kontroller
+Robotaksi Yarışması'nda yarışmaya katılmaya hak kazanan takımların araçları,
+yarışma öncesinde teknik kontrollerden geçirilecektir. Teknik kontroller, Robotaksi
+Yarışması Danışma Kurulu Üyeleri riyasetinde Hakemler tarafından yapılacaktır.
+Her takım, belirlenen sıra ile yarışacağı araçlarının teknik kontrollerini yaptıracaktır.
+Takım üyeleri, teknik kontrol sıralarını takip etmekle yükümlüdür. Teknik kontrollerini
+gerçekleştirmemiş bir takım, hiçbir şekilde yarışamayacak, yarışma ile ilgili bir hak talep
+edemeyecektir.
+Teknik kontroller, takımların yarışacağı araçların, teknik ve genel şartnameye
+uygunluğunun kontrolünü içermektedir. Bu kontroller, Robotaksi Yarışması Hakemleri
+ve takım üyelerinden 2 kişi ile belirlenen alanda yapılacaktır.
+Teknik kontroller teknik şartnamede detaylandırılacaktır.
+Teknik kontrollere girip, teknik kontroller sonucunda olumsuz ya da yetersiz bulunan
+bir takım, hiçbir şekilde yarışamayacak, yarışma ile ilgili bir hak talep edemeyecektir.
+
+
+
+
+                                            15
+Bu konuda Robotaksi Yarışması Danışma Kurulu Üyeleri ve Hakemleri yetkilidir.
+
+5.2.2.       Yarışmalar
+Robotaksi Yarışması, hazırlanan parkurda gerçekleştirilecektir. Her takım, belirlenen
+sıra ile yarışacaktır. Takım üyeleri, yarışma sıralarını takip etmekle yükümlüdür.
+Yarışma, araçların parkur içerisinde belirlenen görevi icra etmesini içermektedir.
+Yarışma, Robotaksi Yarışması Hakemleri ve takım üyelerinden 2 kişi ile, hakemlerce
+belirlenen alanda yapılacaktır. Görevi tamamlamak için, takımlara süre verilecektir. Bu
+“süre” finalde takımlara iletilecektir.
+Takımlar belirli bir süre içerisinde göreve “start” vermeleri gerekmektedir. Teknik
+şartnamede bu süre hakkında bilgi verilecektir. (“başarı; belirli süre içerisinde start
+vermeden herhangi birinde aracın yarışmaya başlamasıdır”).
+Takımlara görev bilgileri yarışma gününde iletilecektir. Yarışmacıların teknik
+kontrollerini sağlayarak ilgili başlangıç pozisyonuna gelmeleri beklenmektedir.
+Detaylı bilgiler teknik şartnamede tanımlanacaktır.
+
+5.2.3.       Yarışma Raporu ve Sunum
+Robotaksi Yarışması'nda yarışmaya hak kazanan bütün takımlar, parkur üzerinde
+yarışların tamamlanmasının ardından; Danışma kurulunun uygun görmesi halinde,
+yarışma raporu hazırlayıp, hazırladıkları raporu sunacaklardır. Yarışma takımları
+sunumlarını, belirlenen sıra ile birer birer gerçekleştireceklerdir. Her bir takımın
+sunumu için bir süre belirlenecek, bu süre içerisinde raporlarını Robotaksi Yarışması
+Danışma Kurulu ve Hakemleri' nin de bulunduğu, katılımın sınırlı olmadığı bir yerde
+sunacaklardır.
+Robotaksi Yarışması'nda yarışan takımlar, yarışma raporlarını, Yarışma Rapor
+Şablonu' na uygun olarak hazırlayacaklardır. Rapor şablonunda talep edilen bilgileri
+raporlarında belirtmeyen takımlar başarısız sayılacaktır.
+Takımların yapacakları sunumlar; çalışmaların takım üyeleri tarafından anlatılması ve
+soru- cevap içerikli olacaktır. Takım üyesi olmayan bir kişinin sunum yapması,
+doğrudan ya da dolaylı olarak sunuma katılması kabul edilmeyecektir.
+Sunum için belirlenen sürelerin dışında yapılan açıklamalar, Robotaksi Yarışması
+Danışma Kurulu ve Hakemleri tarafından değerlendirilmeyecektir. Yarışma sunumları
+için belirlenen süreler Robotaksi Yarışması Danışma Kurulu ve Hakemleri' nin takım
+sorumluları ile yaptığı toplantıda takımlara bildirilecektir.
+
+5.2.4.       Değerlendirme
+Yarışmaların öncesi ve sırasında yapılacak bütün değerlendirmeler için Robotaksi
+Yarışması Danışma Kurulu ve Hakemleri yetkilidir.
+
+
+
+
+                                          16
+6. YARIŞMA TAKVİMİ
+TEKNOFEST 2025 kapsamında yapılacak Robotaksi yarışmasının takvimi ve faaliyet
+detayları Tablo 2’ te yer almaktadır.
+
+                AÇIKLAMA                                      TARİH
+                            ÖZGÜN ARAÇ KATEGORİSİ
+       Teknik Şartnamenin Yayınlanması                      ŞUBAT 2025
+          Yarışma Son Başvuru Tarihi                         01.03.2025
+   Teknik Yeterlilik Formu Son Teslim Tarihi              17.03.2025 – 17:00
+
+Teknik Yeterlilik Formu Sonuçlarının Açıklanması             29.03.2025
+
+            KTR Son Teslim Tarihi                         09.05.2025 – 17:00
+        KTR Sonuçlarının Açıklanması                         28.05.2025
+   Araç Test Videosu, Simülasyon Raporu ve
+                                                          21.07.2025 – 17:00
+          Sunumu Son Teslim Tarihi
+            Finalistlerin Açıklanması                        28.07.2025
+                 Test Dönemi                               AĞUSTOS 2025
+     Robotaksi Yarışması Final Tarihleri     AĞUSTOS-EYLÜL 2025
+                         HAZIR ARAÇ KATEGORİSİ
+       Teknik Şartnamenin Yayınlanması                      ŞUBAT 2025
+          Yarışma Son Başvuru Tarihi                         01.03.2025
+   Teknik Yeterlilik Formu Son Teslim Tarihi              17.03.2025 – 17:00
+
+Teknik Yeterlilik Formu Sonuçlarının Açıklanması             29.03.2025
+
+            KTR Son Teslim Tarihi                         09.05.2025 – 17:00
+        KTR Sonuçlarının Açıklanması                         28.05.2025
+Simülasyon Raporu ve Sunumu Son Teslim Tarihi              HAZİRAN 2025
+      Hazır Araç Kampı Başlangıç Tarihi                 HAZİRAN-TEMMUZ
+         Hazır Araç Kampı Bitiş Tarihi                  HAZİRAN-TEMMUZ
+            Finalistlerin Açıklanması                        28.07.2025
+                 Test Dönemi                               AĞUSTOS 2025
+     Robotaksi Yarışması Final Tarihleri              AĞUSTOS-EYLÜL 2025
+                           Tablo 2 – Yarışma Takvimleri
+Belirtilen rapor aşamaları öncesinde veya sonrasında Danışma Kurulu soru cevap
+toplantıları ve eğitim programı oluşturabilir. Bu yarışma süresinde ilgili takımlara
+
+
+
+                                          17
+Yarışma Komitesi tarafından bilgilendirmesi yapılacaktır.
+İtiraz süreci TEKNOFEST yarışmalar komitesi tarafından sonuçların açıklanmasının
+ardından gönderilen mail ile takımlara bildirilmektedir.
+Takvim ve saatlerde TEKNOFEST Yarışmalar Komitesi tarafından değişiklik yapma
+hakkı bulunmaktadır.
+TEKNOFEST komitesi ve danışma kurulu gerekli gördüğü şartlarda tarihler ile ilgili
+değişiklik yapma hakkını saklı tutar.
+
+7. İLETİŞİM
+Yarışma hakkında sorular için TEKNOFEST web sitesinde Robotaksi-Binek Otonom
+Araç Yarışması sayfasından yarışmanın grubuna katılabilirsiniz. Bu grubun aktif olarak
+takip edilmesi ve her takımdan en az 1 kişinin üye olarak bu gruptaki duyuruları, soru
+ve cevapları takip etmesi yarışmacıların sorumluluğundadır. Belirtilen e-posta
+grubunun takip edilmemesi sonucunda doğacak takımların güncel bilgilendirmelere
+ulaşamama durumundan TEKNOFEST Yarışmalar Komitesi sorumlu değildir.
+Yarışmanın organizasyonel bölümleri ile ilgili soruların iletisim@teknofest.org e-posta
+adresi üzerinden iletilmesi gereklidir.
+Sorularınızın yukarıda doğru kanallar üzerinden iletilmesi, sorulan sorulara hızlı dönüş
+yapılabilmesi açısından önem arz etmektedir.
+
+8. GENEL KURALLAR
+Yarışma kapsamında geçerli olan Genel Kurallar kitapçığına ulaşmak için tıklayınız.
+
+9. ETİK KURALLAR
+Yarışma kapsamında geçerli olan Etik Kurallar kitapçığına ulaşmak için tıklayınız.
+
+Sorumluluk Beyanı
+T3 Vakfı ve TEKNOFEST, yarışmacıların teslim etmiş olduğu herhangi bir üründen
+veya yarışmacıdan kaynaklanan herhangi bir yaralanma veya hasardan hiçbir şekilde
+sorumlu değildir. Yarışmacıların 3. kişilere verdiği zararlardan T3 Vakfı ve
+organizasyon yetkilileri sorumlu değildir. T3 Vakfı ve TEKNOFEST, takımların kendi
+sistemlerini Türkiye Cumhuriyeti yasaları çerçevesinde hazırlamalarını ve
+uygulamalarını sağlamaktan sorumlu değildir.
+Türkiye Teknoloji Takımı Vakfı işbu şartnamede her türlü değişiklik yapma
+hakkını saklı tutar.
+
+
+
+
+                                          18
+19
+

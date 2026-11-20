@@ -1,0 +1,760 @@
+ROBOTAKSİ-BİNEK OTONOM
+    ARAÇ YARIŞMASI
+
+
+  HAZIR ARAÇ KULLANICI
+       DOKÜMANI
+İçindekiler
+1      ROS ,IŞLETIM SISTEMI VE SENSORLER .......................................................................................... 3
+    1.1 Sistem Mimarisi ve Akış Diagramı....................................................................................................... 3
+    1.2 Ros Arayüzü......................................................................................................................................... 4
+    1.3 Ros2 ..................................................................................................................................... 5
+    1.4 Ros Noetic Ile Velodyne VLP16 Lidar, Zed2 Kamera ve Xsens Mti-680 Sensörlerinin
+    Kullanımı ....................................................................................................................................................... 5
+    1.5 Ros Foxy Ile Velodyne VLP16 Lidar, Zed2 Kamera ve Xsens Mti-680 Sensörlerinin
+    Kullanımı ....................................................................................................................................................... 6
+2      ROS – CAN.............................................................................................................................. 6
+    2.1 Ros Noetic – Can İlişkisi..................................................................................................................... 6
+       2.1.1 Ros ortamından Can hattına...................................................................................................... 6
+       2.1.2 Can hattından Ros ortamına .................................................................................................... 10
+    2.2 Ros Foxy – Can İlişkisi ..................................................................................................................... 15
+3      Wifi Bağlantı ........................................................................................................................................... 16
+    3.1 SSH Ve SFTP ile Advantech Erişim ............................................................................................... 16
+4      ROS – DOCKER .................................................................................................................... 18
+    4.1 Docker Image Yapısının SFTP ile Advantech’e Aktarılması ....................................................... 18
+    4.2 Docker Image Yapısının Yerel Dosya Sisteminde Açılması ve Ros Network ile Bağlantılı
+    Çalıştırılması .............................................................................................................................................. 19
+5      Joystick Uzaktan Kontrol ........................................................................................................ 20
+    5.1 Joystick Tuşlarının Fonksiyonları ....................................................................................................... 21
+6      Pid ve Temel Kontroller .......................................................................................................... 21
+    6.1 Temel Kontroller ................................................................................................................. 22
+1 ROS ,IŞLETIM SISTEMI VE SENSORLER
+
+1.1 Sistem Mimarisi ve Akış Diagramı
+
+
+
+
+Yukarıda donanımsal düzeyde sistemin basit şekilde mimarisi sunulmuştur.
+
+
+Aracın kullanılması ile ilgili öngörülen senaryo, kullanıcıların araca SSH ve SFTP üzerinden ulaşması
+bu kapsamda araçta 1 adet Wifi ağına aktif olarak bulunmaktadır.
+Aracın otonom dısındaki kontrolü için 1 Adet Wifi Gamepad bulunmaktadır. Kullanıcıların bu iki
+şekilde araca anabilgisayardan erişmesi öngörülmektedir. Geri kalan işlemler ana bilgisayar ve
+ECU arasında sağlanmaktadır.
+***
+
+
+
+
+1.2 Ros Arayüzü
+
+Robot İşletim Sistemi (ROS), robotik uygulamalar geliştirmek için kullanılan bir yazılım çerçeve-
+sidir. ROS, robotik yazılımın geliştirilmesini, yönetilmesini ve paylaşılmasını kolaylaştıran araçlar,
+kütüphaneler ve konvansiyonlar sağlar.
+
+
+Araçlarda Ros Noetic versiyonu bulunmaktadır. Çalışmalar bu sürüm göz önüne alınarak yapılmalıdır.
+**Ros1 kullanıcak kullanıcılar için “home” klasöründe gizli dosya halindeki “ .bashrc” dosyasının
+içinde en alt 3 satırda bulunan “source /opt/ros/noetic/s ......” ifadesi yorumdan kaldırılıp. “source
+/opt/ros/foxy/... ” ifadesi yoruma alınmalı. ( yoruma almak için satırın başına “#” işareti konulması
+yeterli olacaktır. Ros1 çalışma alanını kullanabilmek için gene aynı dosyada “source /Pro-
+jects/ros_ws.... ” bölümünün yorumda olmamasına dikkat edilmelidir.
+
+
+1.3 Ros2
+
+          ROS 2, ROS'un ikinci versiyonudur ve bazı eksiklikleri ve sınırlamaları gidermek için
+geliştirilmiştir. ROS 2, daha iyi güvenlik, gerçek zamanlı performans ve dağıtık sistem desteği sağlar.
+ROS 2'nin önemli özellikleri arasında:
+
+    •   DDS (Data Distribution Service) Tabanlı İletişim:
+           o DDS, ROS 2'nin mesajlaşma sisteminin temelini oluşturur ve daha güvenilir,
+               ölçeklenebilir iletişim sağlar.
+    •   Daha İyi Platform Desteği:
+           o ROS 2, sadece Linux değil, aynı zamanda Windows ve macOS gibi işletim sistem-
+               lerini de destekler.
+    •   Gelişmiş Güvenlik:
+           o ROS 2, daha güvenli iletişim ve veri transferi için güvenlik özellikleri sunar.
+
+
+Araçlarda ROS2 Foxy sürümü bulunmaktadır. Çalışmalar bu sürüm göz önüne alınarak
+yapılmalıdır.
+**Ros2 kullanıcak kullanıcılar için “home” klasöründe gizli dosya halindeki “ .bashrc” dosyasının
+içinde en alt 3 satırda bulunan “source /opt/ros/foxy/s ..... ” ifadesi yorumdan kaldırılıp. “source
+/opt/ros/noetic/ ... ” ifadesi yoruma alınmalı. Terminaller bu işlemden sonra açılmalı. ( yoruma
+almak için satırın başına “#” işareti konulması yeterli olacaktır. Ros2 çalışma alanını kullanabilmek
+için gene aynı dosyada “source /Projects/ros2_ws ... ” bölümünün yorumda olmamasına dikkat
+edilmelidir.
+
+
+
+
+1.4 Ros Noetic Ile Velodyne VLP16 Lidar, Zed2 Kamera ve Xsens Mti-
+    680 Sensörlerinin Kullanımı
+Araçta Can ve Sensör bilgilerinin işlenmesi için tek bir launch dosyası çalıştırılması yeterlidir.
+
+    •   Roslaunch smart_can_stuff start_can_bus.launch
+Bu launch dosyası çalıştırıldığında bütün sensör bilgileri sisteme basılacaktır.
+1.5 Ros Foxy Ile Velodyne VLP16 Lidar, Zed2 Kamera ve Xsens Mti-680
+    Sensörlerinin Kullanımı
+Araçta Can ve Sensör bilgilerinin işlenmesi için tek bir launch dosyası çalıştırılması yeterlidir.
+
+    •   Ros2 launch smart_can_stuff can_launch.xml
+Bu launch dosyası çalıştırıldığında bütün sensör bilgileri sisteme basılacaktır.
+
+
+
+
+2 ROS – CAN
+
+2.1 Ros Noetic – Can İlişkisi
+
+Bilgisayarın araç kontrolcüsü ile can üzerinden haberleşmesi için yapmamız gereken 2 işlem var.
+Terminalden:
+Ros1 için:
+
+    •   Roslaunch smart_can_stuff start_can_bus.launch
+Bu girdiler yapıldıktan sonra can hattı aktif olmuştur.
+Yukarıda tanımlanan mesajların Ros Topic’leri olarak bilgileri verilecektir.
+
+2.1.1   Ros ortamından Can hattına
+
+
+Topic: /beemobs/rc_unittoOmux
+Veri Alanları:
+
+    •   RC_Ignition : Bu sinyal aracı otonom kontrolcü ile çalıştırmak veya kapatmak için kullanılan
+        sinyaldir.
+            o 0 : OFF (Araç Kapalı)
+            o 1 : ON (Araç Açık)
+    •   RC_SelectionGear : Bu sinyal RC_Ignition sinyali ile aracı çalıştırdıktan sonra araca ha-
+        reket vermek istediğimizde yönünü belirlediğimiz sinyaldir.
+            o 0 : NEUTRAL ( BOŞ VİTES )
+            o 1 : DRIVE ( İLERİ VİTES )
+            o 2 : REVERSE ( GERİ VİTES )
+    •   RC_HighBeam : Bu sinyal araç çalışıyorken uzun farları kontrol eden sinyaldir.
+            o 0 : OFF (Araç Kapalı)
+           o 1 : ON (Araç Açık)
+   •   RC_LowBeam (bit 4): Bu sinyal araç çalışıyorken kısa farları kontrol eden sinyaldir.
+           o 0 : OFF (Araç Kapalı)
+           o 1 : ON (Araç Açık)
+   •   RC_DRL : Bu sinyal araç çalışıyorken gündüz farlarını kontrol eden sinyaldir.
+           o 0 : OFF (Araç Kapalı)
+           o 1 : ON (Araç Açık)
+   •   RC_SignalStatus : Bu sinyal araç çalışıyorken sağ ,sol sinyal ve dörtlü flashörleri kontrol
+       eden sinyaldir.
+           o 0 : Kapalı ( Sağ Sol Sinyal Kapalı )
+           o 1 : Sağ Sinyal
+           o 2 : Sol Sinyal
+           o 3 : Flashor (Dörtlü)
+   •   AUTONOMOUS_DOOR_CLOSE : Bu sinyal araç kapılarının kilitlenmesi için kullanılacaktır.
+           o 0 : Deaktif
+           o 1 : Aktif
+   •   AUTONOMOUS_DOOR_OPEN : Bu sinyal araç kapılarının açılması için kullanılacaktır.
+           o 0 : Deaktif (Araç)
+           o 1 : Aktif (Araç Açık
+   •   RC_ReverseLight : Bu sinyal aracın geri vites lambasının kontrolü için kullanılan sinyaldir.
+           o 0 : OFF (Geri Lambası Kapalı)
+           o 1 : ON (Geri Lambası Açık)
+   •   RC_InteriorLight : Bu sinyal aracın iç aydınlatma lambasının kontrolü için kullanılan
+       sinyaldir.
+           o 0 : OFF (İç Aydınlatma Lambası Kapalı)
+           o 1 : ON (İç Aydınlatma Lambası Açık)
+   •   RC_WindowResintance : Bu sinyal aracın ön cam rezistansının kontrolü için kullanılan
+       sinyaldir.
+           o 0 : OFF (Cam Rezistansı Kapalı)
+           o 1 : ON (Cam Rezistansı Açık)
+           o RC_BrakeLight : Bu sinyal aracın stop lambasının kontrolü için kullanılan
+               sinyaldir.0 : OFF (Stop Lambası Kapalı)
+           o 1 : ON (Stop Lambası Açık)
+   •   AUTONOMOUS_EMERGENCY : Bu sinyal aracın acil durumlarda motor enerjisinin
+       kesilmesini kontrol eden sinyaldir.
+           o 0 : Emergency Deaktive (Acil Stop Kapalı : Araç Hareket Edebilir)
+           o 1 : Emergency Aktif (Acil Stop Aktif : Araç Hareket Edemez)
+
+
+* Açıklama: Acil Stop araç dışında ve içerisinde bulunan acil stop butonları ve acil stop CANbus
+sinyali ile kontrol edilebilir. Bunlardan her hangi biri aktif olduğunda araç acil stop durumuna geçer.
+Acil stop durumunda ise araç çalışabilir fakat hareket edemez. Acil stop durumu sadece araç tahrik
+motorunu durdurup araç vitesini boşa almaktadır.
+        Topic: /beemobs/RC_THRT_DATA
+Bu mesaj otonom kontrolcüden araç kontrolcüsüne periyodik olarak gönderilmesi gereken bir
+mesajdır. Bu mesaj araç açıldıktan ve vites bilgisi araca verildikten sonra aracı hareket ettirmek
+için verilen throttle bilgisidir. Araç buradaki throttle oranına göre hızını değiştirecektir.
+Veri Alanları:
+
+    •   RC_THRT_PEDAL_PRESS : Bu sinyal gaz pedalına basıldı mı basılmadı mı bilgisini araca
+        ileten sinyaldir.
+             o 0 : Pressed (Gaz Pedalına Basıldı)
+             o 1 : NotPressed (Gaz Pedalına Basılmadı)
+        * Açıklama: Bu sinyal throttle verilmeden önce 0 değerine alınmalıdır.
+
+    •   RC_THRT_PEDAL_POSITION : Bu sinyal throttle oranını belirleyen sinyaldir.
+          o Data Range : 50 – 250 ( Araç hızı kısıtlandığı için şuan ki durumda 100-250
+             arasında data range sahitir.)
+          o Factor : 1 -- Offset : 0 -- Byte Order : Intel
+* Örnek : Araç kapalı durumda iken aracı RC_Ignition sinyali ile açık duruma getirdik. Yine aynı
+mesaj ile araç vites bilgisini girdik. (RC_SelectionGear) Bu aşamalar yapıldıktan sonra aracın ha-
+reket etmesi için tek ihtiyacı olan RC_THRT_DATA mesajı içerisinde ki RC_THRT_PE-
+DAL_PRESS ve RC_THRT_PEDAL_POSITION sinyallerinin periyodik olarak gönderilmesidir.
+        Topic: /beemobs/AUTONOMOUS_BrakePedalControl
+Veri Alanları:
+AUTONOMOUS_BrakePedalMotor_EN: Bu sinyal fren pedalını kontrol edebilmemiz için
+kullandığımız motoru Enable Disable yapmamızı sağlayan sinyaldir. Fren motorunu ak- tifleştirmemiz
+için bu sinyali Enable konuma almamız gerekir.
+        ▪ 0 : Disable (Ayak Freni motoru aktif değil)
+        ▪ 1 : Enable (Ayak Freni motoru aktif)
+AUTONOMOUS_BrakePedalMotor_ACC: Bu mesaj ise motorun AUTONOMOUS_BrakePedalMo-
+tor_PER mesajında ki pozisyona ne kadar hızlı ilerleyeceğini girdiğimiz mesajdır.
+        ▪ Data Range : 5000 – 65500
+        ▪ Factor : 1 -- Offset : 0 -- Byte Order : Intel
+AUTONOMOUS_BrakePedalMotor_PER: Bu mesaj ise fren pedalının pozisyonunu tayin ettiğimiz
+mesajdır. Yüzde olarak ifade edilmektedir. %100 girildiğinde pedalı tam basılı hale getirmektedir.
+Fren ve oran doğrusal çalışmaktadır.
+        ▪ Data Range : 0 – 100 (%)
+        ▪ Factor : 1 -- Offset : 0 -- Byte Order : Intel
+AUTONOMOUS_BrakeMotor_Voltage: Bu sinyal ise fren pedalını kontrol etmemizi sağlayan mo-
+torun Gerilimini Aç/Kapa şeklinde kontrol etmemizi sağlayan sinyaldir.
+        ▪ 0 : Disable (Motor Voltajı Kapalı)
+        ▪ 1 : Enable (Motor Voltajı Açık)
+
+
+        Topic: /beemobs/AUTONOMOUS_SteeringMot_Control
+
+Veri Alanları:
+
+    •   AUTONOMOUS_SteeringMot_PWM: Bu mesaj direksiyon yönünü ve hızını kontrol etmek
+        için kullanılır.
+             o Data Range : 0 – 255
+                     ▪ Range : 0 – 127 : Direksiyonu Sola doğru çevirmek için bu aralıkta değer gi-
+                         rilmelidir. 127 girildiği takdirde motor en hızlı şekilde Sola doğru dönmeye
+                         başlayacaktır. 0 – 127 değeri ile motorun hızı doğru orantılıdır.
+                     ▪ Range : 128 – 255 : Direksiyonu Sağa doğru çevirmek için bu aralıkta değer
+                         girilmelidir. 255 girildiği takdirde motor en hızlı şekilde Sağa doğru dönmeye
+                         başlayacaktır. 128 – 255 değeri ile motorun hızı doğru orantılıdır.
+
+        * Açıklama : Direksiyonun mekanik olarak Sağ ve Sol limitlerinde limit switch mevcuttur. Dö-
+        nme hareketini limit switchlere kadar gerçekleştirebiliriz. Limit switchlerden her hangi birine
+        dokunduğu takdirde motor dönme hareketi mekanik Zarar görmemesi amacı ile otomatik
+        olarak duracaktır.
+
+    •   AUTONOMOUS_SteeringMot_EN: Bu sinyal ise araç çalıştırıldıktan sonra direksiyon mo-
+        torunun kontrolünü AÇ / KAPA olarak kontrol ettiğimiz sinyaldir. Direksiyon motorunu ha-
+        reket ettirmeden önce bu sinyalin 1 yapılması gerekmektedir. Aksi takdirde direksiyon mo-
+        toru PWM versek dahi hareket etmeyecektir.
+            o 0 : Disable (Motor Voltajı Kapalı)
+            o 1 : Enable (Motor Voltajı Açık)
+
+
+        Topic: /beemobs/AUTONOMOUS_HB_MotorControl
+
+Veri Alanları:
+
+    •   AUTONOMOUS_HB_MotEN: Bu mesaj el freni motorunun DISABLE / ENABLE kontrolünü
+        yapmamızı sağlamaktadır. El freni motorunu hareket ettirmeden önce bu mesajın ENABLE
+        yapılması gerekmektedir. Aksi taktirde motor hareket etmeyecektir.
+             o 0 : Disable (Motor Voltajı Kapalı)
+             o 1 : Enable (Motor Voltajı Açık)
+    •   AUTONOMOUS_HB_MotState: Bu mesaj is el freninin durumunu tayin etmek için kullanılır.
+        El frenini klasik olarak söylersek İNDİR / ÇEK komutlarını verebildiğimiz mesajdır.
+              o 0 : El Frenini Çek.
+              o 1 : El Frenini İndir.
+    •     AUTONOMOUS_HB_Motor_PWM: Bu mesaj ile el frenin konumunu değiştirirken motorun
+          hızını ayarlayabileceğiz. Uygun bir hız bulup o hızda sabit olarakta kalabilir. Testlerde 200
+          değeri ile denemiştir.
+              o Data Range : 0 – 255
+              o Factor : 1 -- Offset : 0 -- Byte Order : Intel
+
+
+
+2.1.2     Can hattından Ros ortamına
+
+
+ROS Topic: /beemobs/FB_MotorDriver
+
+İçerik:
+
+    •     GEAR_STATUS_FROM_MOTOR: Bu mesaj üzerinden aracın güncel vites durumunu
+          izleyebilirsiniz.
+              o 0 : Neutral (Boş)
+              o 1 : Drive (İleri)
+              o 2 : Reverse (Geri)
+    •     VehicleRPM: Bu mesaj üzerinden anlık olarak Tekerleklerin RPM değerini okuyabilirsiniz.
+              o Factor : 1
+              o Offset : 0
+              o Byte Order : Intel
+
+
+
+ROS Topic: /beemobs/FB_VehicleSpeed
+
+İçerik:
+
+    •     FB_VehicleSpeed_KMh: Bu mesaj üzerinden aracın ekran üzerinde ki gösterilen hızını
+          Km/H cinsinden okuyabilirsiniz.
+               o Factor : 1
+               o Offset : 0
+               o Byte Order : Intel
+    •     FB_ReelVehicleSpeed_KMh: Bu mesaj üzerinden aracın gerçek hızını Km/H cinsinden
+          okuyabilirsiniz.
+               o Factor : 1
+               o Offset : 0
+               o Byte Order : Intel
+    •     FB_ReelVehicleSpeed_Ms: Bu mesaj üzerinden aracın gerçek hızını m/s cinsinden okuya-
+          bilirsiniz.
+               o Factor : 1
+             o   Offset : 0
+             o   Byte Order : Intel
+
+
+
+
+ROS Topic: /beemobs/FB_OMUX_to_AUTONOMOUS
+
+İçerik:
+
+    •     FB_EMERGENCY: Bu mesaj üzerinden araç üzerinde bulunan ve yazılımsal olarakta ver-
+          ilebilen acil stop durumunun feedback izlenebilir. Acil durum butonuna basıldı ise veya
+          yazılımdan acil duruma geçildi ise bu sinyal 1 değerine gelecektir.
+                o ▪ 0 : Emergency Deactive (acil stop aktif değil – araç çalışabilir durumda)
+                o ▪ 1 : Emergency Active (acil stop aktif – araç stop durumunda)
+    •     FB_ReverseLight: Bu mesaj üzerinden araç üzerinde bulunan geri lambasının açık mı ka-
+          palı mı olduğunu izleyebiliriz.
+                o ▪ 0 : Close ( geri lambası kapalı)
+                o ▪ 1 : Open (geri lambası açık)
+    •     FB_RightSignal: Bu mesaj üzerinden araç sağ sinyalinin açık mı kapalı mı olduğunu izleye-
+          biliriz.
+                o ▪ 0 : Close ( sağ sinyal kapalı)
+                o ▪ 1 : Open (sağ sinyal açık)
+    •     FB_WindowResistance: Bu mesaj üzerinden araç üzerinde bulunan cam rezistansının açık
+          mı kapalı mı olduğunu izleyebiliriz.
+                o ▪ 0 : Close (rezistans kapalı)
+                o ▪ 1 : Open (rezisatans açık)
+    •     FB_LeftSignal: Bu mesaj üzerinden araç sol sinyalinin açık mı kapalı mı olduğunu izleye-
+          biliriz.
+                o ▪ 0 : Close ( sol sinyal kapalı)
+                o ▪ 1 : Open (sol sinyal açık)
+    •     FB_InteriorLight: Bu mesaj üzerinden araç üzerinde bulunan iç aydnlatmanın açık mı kapalı
+          mı olduğunu izleyebiliriz.
+                o ▪ 0 : Close ( iç aydınlatma kapalı)
+                o ▪ 1 : Open (iç aydınlatma açık)
+    •     FB_DRL: Bu mesaj üzerinden araç üzerinde bulunan gündüz ledlerinin açık mı kapalı mı
+          olduğunu izleyebiliriz.
+                o ▪ 0 : Close ( gündüz ledi kapalı)
+                o ▪ 1 : Open (gündüz ledi açık)
+    •     FB_DoorKeyStatus Bu mesaj üzerinden araç kapılarının kilidinin açık mı kapalı mı
+          olduğunu izleyebiliriz.
+                o ▪ 0 : Open ( kilitler açık)
+                o ▪ 1 : Close (kilitler kapalı)
+    •     FB_BrakeLight: Bu mesaj üzerinden araç stop lambaları yanıyor mu yanmıyor mu duru-
+          munu izleyebiliriz.
+          o ▪ 0 : Close (stop lambası kapalı)
+          o ▪ 1 : Open (stop lambası açık)
+•   FB_BatteryVoltage: Bu mesaj üzerinden araç üzerinde bulunan HV bataryanın anlık voltaj
+    değerini izleyebilirsiniz.
+          o ▪ Factor : 1
+          o ▪ Offset : 0
+          o ▪ Data Range : 0 – 86 ( V )
+          o ▪ Byte Order : Intel
+•   FB_ChargeInput: Bu mesaj üzerinden araca şarj aleti takılı mı değil mi olduğunu izleye-
+    biliriz.
+          o ▪ 0 : Not Connected Charge Inlet ( şarj aleti takılı değil)
+          o ▪ 1 : Connected Charge Inlet (şarj aleti takılı)
+•   FB_HighBeam: Bu mesaj üzerinden araç üzerinde ki farların uzun konumu açık mı kapalı
+    mı olduğunu izleyebiliriz.
+          o ▪ 0 : Close ( araç kapalı)
+          o ▪ 1 : Open (araç açık)
+•   FB_LowBeam: Bu mesaj üzerinden araç üzerinde ki farların kısa konumu açık mı kapalı mı
+    olduğunu izleyebiliriz.
+          o ▪ 0 : Close ( kısa far kapalı)
+          o ▪ 1 : Open (kısa far açık)
+•   FB_IGNITION: Bu mesaj üzerinden araç açık mı kapalı mı olduğunu izleyebiliriz. RC_Igni-
+    tion sinyali 1 yapıldığında bu mesaj üzerinden araç çalıştıktan sonra 1 değerini oku-
+    malısınız.
+          o ▪ 0 : Close ( araç kapalı)
+          o ▪ 1 : Open (araç açık)
+•   FB_HazardousLight: Bu mesaj üzerinden araç dörtlü flashörlerin açık mı kapa lı mı
+    olduğunu izleyebiliriz. SignalStatus sinyalini Flashor yaptığında FB_HazardousLight sinyali 1
+    olucaktır.
+          o ▪ 0 : Close ( dörtlü kapalı)
+          o ▪ 1 : Open (dörtlü açık)
+•   FB_VehicleStatus: Bu sinyal araç durumunu gösteren sinyaldir. Araçta herşey OK ise araç
+    ready duruma geçer. Eğer bir arıza mevcut ise araç Fault duruma geçer. Fault durumunda
+    ise yukarıda ki arızalardan birisi oluşmuş demektir.
+          o ▪ 0 : Ready
+          o ▪ 1 : Fault
+•   FB_LeftDoorStatus: Bu mesaj üzerinden araç üzerindeki sol kapının kapalı mı açık mı duru-
+    munu izleyebiliriz.
+          o ▪ 0 : Close ( kapı kapalı )
+          o ▪ 1 : Open (kapı açık)
+•   FB_RightDoorStatus: Bu mesaj üzerinden araç üzerindeki sağ kapının kapalı mı açık mı
+    durumunu izleyebiliriz.
+          o ▪ 0 : Close ( kapı kapalı )
+          o ▪ 1 : Open (kapı açık)
+    •     FB_BatterySOC: Bu mesaj üzerinden araç üzerinde bulunan HV bataryanın % olarak dolu-
+          luk oranını izleyebilirsiniz.
+               o ▪ Factor : 1
+               o ▪ Offset : 0
+               o ▪ Data Range : 0 – 100 (%)
+               o ▪ Byte Order : Intel
+    •     FB_ErrorPowerTrain: Bu mesaj üzerinden araç üzerinde bulunan ve Powertrain bölgesinde
+          ki cihazlar üzerinde her hangi birinde bir arıza oluşur ise o durumu izleyebileceğiz. Sinyalin 1
+          olması durumunda powertrain bölgesinde bir arıza var diyeceğiz.
+               o ▪ 0 : No Error ( Hata Yok)
+               o ▪ 1 : Error (Hata Var)
+    •     FB_ErrorBattery: Bu mesaj üzerinden araç üzerinde bulunan HV batarya üzerinde bir arıza
+          var mı yok mu? Durumunu izleyebiliriz. Bu sinyalin 1 olması durumunda HV batarya
+          üzerinde bir arıza mevcuttur. Bataryaya bakılmalıdır.
+               o ▪ 0 : No Error ( Hata Yok)
+               o ▪ 1 : Error (Hata Var)
+    •     FB_BrakePedal_Voltage_EN: Bu mesaj üzerinden araç üzerinde bulunan fren pedalı
+          kontrol motorunun voltajı açıldı mı açılmadı mı? durumunu izleyebileceğimiz bir mesajdır.
+               o ▪ 0 : Close (Fren Pedal Motoru Voltajı Kapalı)
+               o ▪ 1 : Open (Fren Pedal Motoru Voltajı Açık)
+
+
+
+
+ROS Topic: /beemobs/snd_RCUnit_SteeringData
+
+İçerik:
+
+    •     RC_Steering_RightLimit: Bu mesaj üzerinden direksiyonun sağ yöne doğru mekanik olarak
+          limite geldiğini izleyebiliriz.
+               o ▪ 0: Limitte ( mekanik olarak sağa dayandı)
+               o ▪ 1: Limitte Değil (sağa doğru hareket edebilir. Limitte Değil)
+    •     RC_Steering_LeftLimit: Bu mesaj üzerinden direksiyonun sol yöne doğru mekanik olarak
+          limite geldiğini izleyebiliriz.
+               o ▪ 0: Limitte ( mekanik olarak sola dayandı)
+               o ▪ 1: Limitte Değil (sola doğru hareket edebilir. Limitte Değil)
+    •     RC_SteeringPWM: Bu mesaj üzerinden araç direksiyon motoruna uygulanan PWM değerini
+          izleyebilirsiniz. Bu mesaj otonom kontrolcü açısından kritik olmayabilir.
+               o ▪ Factor : 1
+               o ▪ Offset : 0
+               o ▪ Byte Order : Intel
+               o ▪ Data Range : 0 – 900
+    •     RC_SteeringDirection: Bu mesaj üzerinden araç direksiyonunun hangi yöne doğru hareket
+          ettiğini izleyebilirsiniz.
+             o   ▪ 0 : Neutral ( hareket etmiyor )
+             o   ▪ 1 : Right Side (sağa dönüş)
+             o   ▪ 2 : Left Side (sola dönüş)
+
+
+
+
+ROS Topic: /beemobs/snd_RCUnit_BrakeData
+
+İçerik:
+
+    •     RC_BrakePedal_Speed
+    •     RC_BrakePedal_Acc: Bu mesaj üzerinden fren pedal motoruna uygulanan ivmelenme par-
+          ametresini izleyebilirsiniz. Kontrol mesajından gönderdiğiniz değer ile aynı olması gerekir.
+              o ▪ Factor : 1
+              o ▪ Offset : 0
+              o ▪ Data Range : 5000 – 65500
+              o ▪ Byte Order : Intel
+    •     RC_BrakePedal_Pos: Bu mesaj üzerinden fren pedal motorunun konumunu takip edebilirsi-
+          niz. 0 – 100 arasında yüzde olarak geri bildirim vermektedir. Kontrol mesajında oranı 50
+          yaptıysanız bu mesaj üzerinden de 50 okumalısınız.
+              o ▪ Factor : 1
+              o ▪ Offset : 0
+              o ▪ Data Range : 0 – 100 (%)
+              o ▪ Byte Order : Intel
+
+
+
+
+ROS Topic: /beemobs/snd_RCUnit_HandBrakeData
+
+İçerik:
+
+    •     RC_HB_PwmValue: Bu mesaj il eel freni motoruna verilen PWM sinyalinin miktarını göre-
+          bilirsiniz.
+               o ▪ Factor : 1
+               o ▪ Offset : 0
+               o ▪ Data Range : 0 – 1000
+               o ▪ Byte Order : Intel
+    •     RC_HandBrake_PRESS: Bu mesaj il el freni konumunu okuyabiliriz. Bu mesaj el freni mo-
+          torunun el frenini çekmesi ile mekanik olarak sona geldiğini gösteren mesajdır. Bu sinyal 0
+          olduğunda motor hareketi durduracaktır. El frenide çekili konuma gelecektir.
+               o ▪ 0: Limitte ( El freni çekik)
+               o ▪ 1: Limitte Değil.
+    •     RC_HandBrake_FREE : Bu mesaj il el freni konumunu okuyabiliriz. Bu mesaj el freni mo-
+          torunun el frenini indirmesi ile mekanik olarak sona geldiğini gösteren mesajdır. Bu sinyal 0
+          olduğunda motor hareketi durduracaktır. El frenide inik konuma gelecektir.
+              o ▪ 0: Limitte ( El freni inik )
+              o ▪ 1: Limitte Değil.
+    •     RC_HandBrakeData: Bu mesaj üzerinden el fren motoru hangi konuma ilerliyor bilgisini
+          izleyebilirsiniz.
+              o ▪ 0 : Neutral (Motor Hareket Etmiyor )
+              o ▪ 1 : OFF ( Motor el frenini indiriyor )
+              o ▪ 2 : ON ( Motor el frenini çekiyor)
+
+
+
+
+ROS Topic: /beemobs/AutonomousHeardBit
+
+İçerik:
+
+    •     AutonomousManuelSelect
+
+
+
+ROS Topic: /beemobs/FeedbackSteeringAngle
+
+İçerik:
+
+    •     FeedBackSteeringAngle: Bu mesaj üzerinden teker dönüş açısı takip edilebilir.
+    •     FeedBackBrakepedalAngle: Bu mesaj üzerinden Fren pedalinin fiziksel olarak hareketi
+          takip edilebilir.
+
+
+
+
+2.2 Ros Foxy – Can İlişkisi
+
+Bilgisayarın araç kontrolcüsü ile can üzerinden haberleşmesi için yapmamız gereken 2 işlem var.
+Terminalden:
+Ros2 için:
+
+    •     Ros2 launch smart_can_stuff can_launch.xml
+Bu girdiler yapıldıktan sonra can hattı aktif olmuştur.
+**Yukarıda ROS1 için Verilen Topic ve içerikler ROS2 içinde geçerlidir.
+
+
+
+
+3 Wifi Bağlantı
+
+3.1 SSH Ve SFTP ile Advantech Erişim
+
+Öncelikli olarak aracın kontağı açılmalıdır. Bir süre sonra Wifi ağı olarak aracın üzerinde bulunan
+“robotaxi_1” veya “robotaxi_2” gözükecektir. “Şifre:robotaxi” olarak ayarlanmıştır. Araçların ip si
+sabit:
+Robotaxi_1 : “192.168.30.100”
+Robotaxi_2: “192.168.10.100” şeklindedir.
+Kullanıcıların bu ağa dahil olması beklenmektedir. Sonrasında bilgisayarın açık olduğundan emin
+olunmalı. (power tuşu yeşil renkte yanması gerekmektedir.)
+SSH: “sudo ssh smart@192.168.30.100” girdisini terminalden girerek ssh bağlantısı sağlanmak-
+tadır.
+SFTP: “sudo sftp smart@192.168.30.100” Şeklinde Sftp ile bağlantıda sağlanabilir.
+Burada ssh ile robotaxi aracındaki kontrol bilgisayarının terminallerine erişim sağlanırken, SFTP ile
+dosya sistemine erişim sağlanmaktadır.
+SFTP daha rahat kullanılması adına “Filezilla” Adındaki uygulamayı kullanıcıların kullanılması
+önerilir. Görsel bir gui ile dosya sistemi SFTP üzerinden yönetilebilir. Filezilla kullanımı için:
+FileZilla'yı Açın:
+
+    •   FileZilla'yı açın.
+Site Yöneticisini Açın:
+
+   •   FileZilla'da üst menüden File (Dosya) > Site Manager (Site Yöneticisi) öğesini seçin.
+Yeni Site Ekle:
+
+   •   New Site (Yeni Site) düğmesine tıklayın ve siteye bir ad verin.
+Bağlantı Ayarlarını Girin:
+
+   •   Host (Sunucu): Bağlanmak istediğiniz bilgisayarın IP adresini veya alan adını girin.
+   •   Port (Bağlantı Noktası): Varsayılan SFTP portu 22'dir.
+   •   Protocol (Protokol): SFTP - SSH File Transfer Protocol öğesini seçin.
+   •   Logon Type (Giriş Tipi): Normal öğesini seçin.
+   •   User (Kullanıcı): Uzak bilgisayardaki kullanıcı adınızı girin.
+   •   Password (Parola): Uzak bilgisayardaki kullanıcı parolanızı girin.
+Bağlantı Kurma:
+
+   •   Connect (Bağlan) düğmesine tıklayın.
+File zilla uygulaması ile dosya transferiniz ve dosyalar içerisinde değişim yapmanız daha kolay
+olacaktır.
+
+
+4 ROS – DOCKER
+
+4.1 Docker Image Yapısının SFTP ile Advantech’e Aktarılması
+
+Hazırladığınız Docker Image yapınızı araçtaki bilgisayara yüklemek için öncelikli olarak Image
+yapısının paketlenmesi gerekir.
+
+    •   docker save -o my-docker-image.tar my-docker-image
+(“my-docker-image" bölümüne kendi docker image adınızı giriniz.)
+Komutu ile docker image yapınızı tek bir .tar uzantılı dosya haline getirebilirsiniz. FileZilla ile
+Docker image dosyasını yüklemek için:
+FileZilla'yı Açın:
+
+    •   FileZilla'yı açın.
+Site Yöneticisini Açın:
+
+    •   FileZilla'da üst menüden File (Dosya) > Site Manager (Site Yöneticisi) öğesini seçin.
+Yeni Site Ekle:
+   •   New Site (Yeni Site) düğmesine tıklayın ve siteye bir ad verin.
+Bağlantı Ayarlarını Girin:
+
+   •   Host (Sunucu): Bağlanmak istediğiniz bilgisayarın IP adresini veya alan adını girin.
+   •   Port (Bağlantı Noktası): Varsayılan SFTP portu 22'dir.
+   •   Protocol (Protokol): SFTP - SSH File Transfer Protocol öğesini seçin.
+   •   Logon Type (Giriş Tipi): Normal öğesini seçin.
+   •   User (Kullanıcı): Uzak bilgisayardaki kullanıcı adınızı girin.
+   •   Password (Parola): Uzak bilgisayardaki kullanıcı parolanızı girin.
+Bağlantı Kurma:
+
+   •   Connect (Bağlan) düğmesine tıklayın.
+Docker Image'i Yükleyin:
+
+   •   Sol taraftaki pencerede my-docker-image.tar dosyasını bulun.
+   •   Bu dosyayı sağ taraftaki pencereye sürükleyip bırakın. Bu işlem dosyanızı uzak bilgisayara
+       yükleyecektir.
+   •   Alternatif olarak, dosyayı sağ tıklayıp Upload (Yükle) seçeneğini seçebilirsiniz.
+
+
+
+
+4.2 Docker Image Yapısının Yerel Dosya Sisteminde Açılması ve Ros
+    Network ile Bağlantılı Çalıştırılması
+
+Terminali açın ve SSH ile araçtaki bilgisayara bağlanın.
+
+   •   Sudo ssh smart@192.168.30.100
+Docker image yükleyin.
+
+   •   docker load -i /path/to/my-docker-image.tar
+Bu adımdan sonra docker İmage container oluşturmaya hazır hale gelmiştir.
+
+
+Ros1 networküne bağlı container oluşturmak için:
+
+   •   sudo docker container run -it --network <network_adi> --env ROS_MAS-
+       TER_URI=<ros_master_uri> --name <container_adi> <image_adi>
+   •   Örnek : sudo docker container run -it --network host --env ROS_MASTER_URI=http://mas-
+       ter:11311 --name ros_robotaxi my-ros-image
+Komutu kullanılarak container oluşturulabilir. (gerekli yerler image ve network yapınıza göre gün-
+cellenmeli.)
+Ros2 için:
+
+   •    sudo docker container run -it --network bridge --name my_ros2_container my_ros2_image
+Şeklinde Ros2 ile çalışacak container oluşturulabilir.
+
+
+
+
+5 Joystick Uzaktan Kontrol
+
+Araca SSH ile bağlandıktan ve can bölümünü aktif ettikten sonra joystick kodu çalıştırılabilir.
+
+
+Ros1:
+
+   •    Rosrun smart_can_stuff beemobs.py
+Ros2:
+
+   •    Ros2 run smart_can_stuff beemobs.py
+5.1 Joystick Tuşlarının Fonksiyonları
+
+
+
+
+6 Pid ve Temel Kontroller
+      Ros için Aracın hızı ve teker açısı için pid yapısı mevcuttur. Parametrik olarak Kp, Ki , Kd
+değerleri ayarlanabilir. “Projects/ros_ws/src/ smart_can_driver /smart_can_stuff/config/steer-
+ing_pid.yaml” dosyasından teker açısı ile ilgili parametreleri, “Pro-
+jects/ros_ws/src/smart_can_driver/smart_can_stuff/config/thrt_pid.yaml” dosyasından da araç hızı
+ile ilgili pid parametreleri ayarlanabilmektedir. Pid_node çalışması için terminalde:
+
+   •   Roslaunch smart_can_stuff pid.launch
+Komutu çalıştırılmalıdır. Pid sisteme entegre şekilde yazılmıştır. "/beemobs/steering_tar-
+get_value" topiğine değer verildiğinde kontrol devreye girecek, bu topicden 3 loop mesaj
+gelmediğinde pid kontrolcüsü devreden cıkacaktır. Bu topic ile teker açısı kontrol edilmektedir.
+
+
+“/beemobs/speed_target_value" topiğinden de aracın istenilen hıza ulaşması kontrol edilecektir.
+Ros2 için yapı aynı şekildedir.
+
+      •   Ros2 launch smart_can_stuff pid_launch.py
+Komutu ile pid kontrolürleri aktif olmaktadır.
+Kp, Ki, Kd parametrelerinin ayarlanması için dosya: “Pro-
+jects/ros2_ws/src_smart_can_stuff/launch/pid_params.yaml” konumunda bulunmaktadır.
+***
+
+“ROS Topic: /beemobs/FeedbackSteeringAngle
+
+İçerik:
+
+      •   FeedBackSteeringAngle: Bu mesaj üzerinden teker dönüş açısı takip edilebilir.
+      •   FeedBackBrakepedalAngle: Bu mesaj üzerinden Fren pedalinin fiziksel olarak hareketi
+          takip edilebilir.”
+***
+Yukarıda belirtilen topic üzerinden sensör datalarını dinleyerek Teker açısı kontrolü için kendi Pid
+kontrolcünüzü geliştiebilirsiniz.
+
+
+***
+
+“ROS Topic: /beemobs/FB_VehicleSpeed
+
+İçerik:
+
+      •   FB_VehicleSpeed_KMh: Bu mesaj üzerinden aracın ekran üzerinde ki gösterilen hızını
+          Km/H cinsinden okuyabilirsiniz.”
+***
+Yukarıda belirtilen topic kullanılarak aracın hızı ile ilgili kendi pid kontrolcünüzü geliştirebilirsiniz.
+
+
+6.1 Temel Kontroller
+
+Aracın Çalıştırılması,
+6.1.1 bölümünde ayrıntılı şekilde bahsedilen “/beemobs/rc_unittoOmux” topiğinin “RC_Ignition”
+Verisini “1” yaparak paylaşmamız gerekir.
+Yukarıdaki resimde Topic ve data bilgisi verilmiştir.
+Bu mesajı paylaştıktan sonra “/beemobs/FB_OMUX_to_AUTONOMOUS” Topiğinden araçtaki
+değişimleri takip edebiliriz.
+Vites Değişimi,
+Yukardaki resimde görülen mesajda “rc_selectiongear” değeri 0 iken boş, 1 iken ileri vites 2 için
+geri vitesi temsil etmektedir.
+
+
+Direksiyon Kontrolü,
+Araç çalışır durumda iken “/beemobs/AUTONOMOUS_SteeringMot_Control” Topiği üzerinden
+direksiyonu kontrol etmek mümkündür.
+
+
+
+
+Resimde topic içeriği gözükmektedir. Öncelikli olarak “AUTONOMOUS_SteeringMot_EN” değeri 1
+yapılarak direksiyon motoru aktif edilmelidir. Sonrasında “AUTONOMOUS_SteeringMot_PWM”
+değeri “0-127 arasında verdiğimizde” direksiyon sola “128-255” arasında verdiğimizde direksiyon sağa
+dönecektir. “/beemobs/FeedbackSteeringAngle” Topiği ile direksiyon açısındaki değişim takip edilebilir.
+El Freni,
+Araç çalışır durumda iken “/beemobs/AUTONOMOUS_HB_MotorControl” topiği üzerinden el fren- inin
+kontrol edebiliriz.
+El freni motorunu sürmek için 200 değeri uygundur. “AUTONOMOUS_HB_MotEN” 1 yaparak
+motoru aktif ederiz. “AUTONOMOUS_HB_MotState” için 0 değeri el frenini çek 1 değeri el frenini
+indir demektir.
+Ayak Freni,
+Araç çalışır durumda ve motora gaz verilmiyorken
+“/beemobs/AUTONOMOUS_BrakePedalControl” topiğinden ayak frenini kontrol edebiliriz.
+
+
+
+
+Resimde görülen 3 değer resimdeki değerlere getirilerek kullanılabilir. “AUTONO-
+MOUS_BrakePedalMotor_PER” değeri 0 – 100 arasında Ayak frenine basılma yüzdesi olarak
+düşünülerek verilerek aktif edilebilir.
+Motora güç verme,
+Araç çalışır durumda ve El freni ve Ayak freni basılı değil iken kontrol etmek mümkündür.
+
+
+
+
+“RC_THRT_PEDAL_PRESS” değeri 1 iken motora güç veremeyiz , Motora güç vermeyeceğimiz
+durumlarda bu değeri 1 de tutmalıyız. Motora güç vereceğimizde bu değer 0 olmalıdır.
+“RC_THRT_PEDAL_POSITION” değeri 50-250 arasında Güç artacak şekilde ayarlanmıstır burada güç
+verirken kademeli verilmesi gerekmektedir.
+Aracı kapama,
+Yukarıda görüldüğü şekilde yapılacak paylaşım aracı kapatacaktır.
+
+
+** Araçtaki gönderilen her mesaj periyodik olarak devamlı gönderilecektir, yapacagınız değişiklere
+bağlı olarak değerler son yapılan değişikliği göze alarak veri göndermeye devam etmektedir. Bun- dan
+dolayı motora güç verdikten sonra Fren yapacaksak, Motora verdiğimiz gücü kesip sonrasında fren
+yapmalı ve fren yapmayı bırakacaksak değerleri tekrardan 0 a çekmeliyiz.
+

@@ -1,0 +1,1049 @@
+<title>Mergen-01 Sakınma Yığını</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* ============================================================
+   Mergen-01 — TEKNOFEST Robotaksi sakınma yığını
+   Palet: asfalt nötrleri (mavi eğilimli) + trafik konisi turuncusu.
+   Durum renkleri doğrudan FSM'den (avoider_node.py ile aynı).
+   ============================================================ */
+
+:root {
+  /* --- açık tema: tam palet --- */
+  --bg:         #EFF0EE;
+  --bg-sunk:    #E5E7E4;
+  --surface:    #FFFFFF;
+  --ink:        #14181C;
+  --ink-soft:   #3B444C;
+  --muted:      #616C76;
+  --rule:       #D2D6D3;
+  --rule-soft:  #E2E5E2;
+  --accent:     #C8480A;
+  --accent-ink: #FFFFFF;
+  --accent-wash:#FBEDE5;
+
+  --s-cruise:    #17854A;
+  --s-slow:      #A67C00;
+  --s-avoid:     #C8480A;
+  --s-blocked:   #B5231F;
+  --s-emergency: #A3146F;
+  --s-recover:   #5B32C0;
+
+  --scope-bg:   #F7F8F6;
+  --scope-ring: #C9CEC9;
+  --scope-hit:  #14181C;
+
+  --shadow: 0 1px 2px rgba(20,24,28,.06), 0 8px 24px -12px rgba(20,24,28,.18);
+
+  --display: "Oswald", "Arial Narrow", Impact, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --col: 67ch;
+  --wide: 1120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:         #12151A;
+    --bg-sunk:    #0D1014;
+    --surface:    #191D23;
+    --ink:        #E9ECEA;
+    --ink-soft:   #C2C9CD;
+    --muted:      #8B96A0;
+    --rule:       #2A3139;
+    --rule-soft:  #21272E;
+    --accent:     #FF7F3C;
+    --accent-ink: #1A0E06;
+    --accent-wash:#2A1A10;
+
+    --s-cruise:    #44CE78;
+    --s-slow:      #E6BE34;
+    --s-avoid:     #FF7F3C;
+    --s-blocked:   #FF6057;
+    --s-emergency: #FF63C2;
+    --s-recover:   #AE91FF;
+
+    --scope-bg:   #0F1317;
+    --scope-ring: #2D353D;
+    --scope-hit:  #E9ECEA;
+
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:         #12151A;
+  --bg-sunk:    #0D1014;
+  --surface:    #191D23;
+  --ink:        #E9ECEA;
+  --ink-soft:   #C2C9CD;
+  --muted:      #8B96A0;
+  --rule:       #2A3139;
+  --rule-soft:  #21272E;
+  --accent:     #FF7F3C;
+  --accent-ink: #1A0E06;
+  --accent-wash:#2A1A10;
+
+  --s-cruise:    #44CE78;
+  --s-slow:      #E6BE34;
+  --s-avoid:     #FF7F3C;
+  --s-blocked:   #FF6057;
+  --s-emergency: #FF63C2;
+  --s-recover:   #AE91FF;
+
+  --scope-bg:   #0F1317;
+  --scope-ring: #2D353D;
+  --scope-hit:  #E9ECEA;
+
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { width: 100%; max-width: var(--wide); margin: 0 auto; padding: 0 28px; }
+.col { width: 100%; max-width: var(--col); }
+
+h1, h2, h3, .display {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: .005em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+/* ---- eyebrow / etiket ---- */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .70rem;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---- şerit çizgisi ayırıcı: yol işaretlemesi motifi ---- */
+.lane {
+  height: 4px;
+  border: 0;
+  margin: 0;
+  background: repeating-linear-gradient(90deg,
+    var(--rule) 0 30px, transparent 30px 52px);
+}
+
+/* ================= HERO ================= */
+header.hero {
+  background: var(--bg-sunk);
+  border-bottom: 1px solid var(--rule);
+  padding: clamp(44px, 7vw, 86px) 0 0;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+@media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; } }
+
+h1 {
+  font-size: clamp(2.5rem, 7vw, 4.3rem);
+  line-height: .96;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  margin: 14px 0 0;
+}
+h1 .thin { font-weight: 400; color: var(--ink-soft); display: block; }
+
+.thesis {
+  font-size: 1.11rem;
+  color: var(--ink-soft);
+  margin: 22px 0 0;
+  max-width: 54ch;
+}
+.thesis strong { color: var(--ink); font-weight: 600; }
+
+/* ---- rakam şeridi ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 34px 0 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.stat { padding: 16px 18px 16px 0; border-right: 1px solid var(--rule-soft); }
+.stat:last-child { border-right: 0; }
+.stat .n {
+  font-family: var(--display);
+  font-size: 2.05rem;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  display: block;
+}
+.stat .k {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-top: 8px;
+}
+.stat.ok .n { color: var(--s-cruise); }
+.stat.hot .n { color: var(--accent); }
+@media (max-width: 620px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+.hero-foot {
+  padding: 22px 0 26px;
+  font-family: var(--mono);
+  font-size: .76rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+
+/* ================= KAPSAM ================= */
+section { padding: clamp(46px, 6vw, 78px) 0; }
+section.sunk { background: var(--bg-sunk); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+
+h2 {
+  font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  line-height: 1.08;
+  margin: 10px 0 0;
+}
+h3 {
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 1.04rem;
+  letter-spacing: 0;
+  margin: 0;
+}
+.lead { color: var(--ink-soft); margin: 16px 0 0; }
+p { margin: 1.05em 0 0; }
+.col > p:first-of-type { margin-top: 18px; }
+
+code, .m {
+  font-family: var(--mono);
+  font-size: .875em;
+  background: var(--accent-wash);
+  padding: .1em .36em;
+  border-radius: 3px;
+  color: var(--ink);
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ================= DÖNGÜ ================= */
+.loop {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 30px;
+}
+@media (max-width: 920px) { .loop { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .loop { grid-template-columns: 1fr; } }
+
+.step {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--accent);
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.step .eyebrow { color: var(--accent); }
+.step .q { font-weight: 600; font-size: .97rem; line-height: 1.34; }
+.step .d { font-size: .84rem; color: var(--muted); line-height: 1.5; }
+.step .f {
+  font-family: var(--mono);
+  font-size: .73rem;
+  color: var(--ink-soft);
+  margin-top: auto;
+  padding-top: 9px;
+  border-top: 1px dashed var(--rule);
+}
+.step.gap-layer { border-top-color: var(--rule); opacity: .66; }
+.step.gap-layer .eyebrow { color: var(--muted); }
+
+.loop-note {
+  font-size: .9rem;
+  color: var(--muted);
+  margin-top: 16px;
+  padding-left: 14px;
+  border-left: 2px solid var(--accent);
+}
+
+/* ================= SCOPE (polar diyagram) ================= */
+.scope-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: clamp(26px, 4vw, 52px);
+  align-items: center;
+  margin-top: 30px;
+}
+@media (max-width: 860px) { .scope-grid { grid-template-columns: 1fr; } }
+
+.scope {
+  background: var(--scope-bg);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow);
+  padding: 10px;
+}
+.scope svg { display: block; width: 100%; height: auto; }
+
+.ring { fill: none; stroke: var(--scope-ring); stroke-width: 1; stroke-dasharray: 3 5; }
+.ringlab { fill: var(--muted); font-family: var(--mono); font-size: 10px; }
+.blocked { fill: var(--s-blocked); opacity: .17; }
+.freegap { fill: var(--s-cruise); opacity: .10; }
+.hits { fill: none; stroke: var(--scope-hit); stroke-width: .8; opacity: .30; }
+.hit { fill: var(--scope-hit); opacity: .72; }
+.cand { stroke: var(--ink); stroke-width: 1.4; }
+.chosen { stroke: var(--s-avoid); stroke-width: 3; }
+.chosentip { fill: var(--s-avoid); }
+.goal { stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.body { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+.bodydot { fill: var(--accent); }
+
+.legend { display: flex; flex-direction: column; gap: 11px; margin: 0; padding: 0; list-style: none; }
+.legend li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: baseline; font-size: .91rem; }
+.legend .sw { height: 11px; margin-top: 6px; border-radius: 2px; }
+.legend .t { color: var(--ink-soft); }
+.legend .t b { color: var(--ink); font-weight: 600; }
+
+.readout {
+  font-family: var(--mono);
+  font-size: .78rem;
+  margin-top: 22px;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+.readout div { display: flex; justify-content: space-between; gap: 14px; padding: 7px 12px; border-bottom: 1px solid var(--rule-soft); }
+.readout div:last-child { border-bottom: 0; }
+.readout span:last-child { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* ================= DURUM MAKİNESİ ================= */
+.fsm { display: grid; gap: 10px; margin-top: 28px; }
+.fsm-row {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 200px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--st);
+  padding: 13px 16px;
+}
+@media (max-width: 760px) { .fsm-row { grid-template-columns: 1fr; gap: 6px; } }
+.fsm-name {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: .86rem;
+  letter-spacing: .04em;
+  color: var(--st);
+}
+.fsm-when { font-size: .88rem; color: var(--muted); font-family: var(--mono); }
+.fsm-do { font-size: .94rem; color: var(--ink-soft); }
+
+/* ================= TABLO ================= */
+.tablewrap { overflow-x: auto; margin-top: 28px; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .89rem; min-width: 720px; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--rule-soft); }
+thead th {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  background: var(--bg-sunk);
+  border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0;
+}
+tbody tr:last-child td { border-bottom: 0; }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.w { font-family: var(--mono); font-size: .84rem; white-space: nowrap; }
+
+.pill {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+}
+.pill.pass { color: var(--s-cruise); }
+.pill.expect { color: var(--s-slow); }
+.pill.fail { color: var(--s-blocked); }
+
+/* ================= HATA KARTLARI ================= */
+.bugs { display: grid; gap: 16px; margin-top: 30px; }
+.bug {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 20px 22px 22px;
+  display: grid;
+  gap: 13px;
+}
+.bug-head { display: flex; align-items: baseline; gap: 13px; flex-wrap: wrap; }
+.bug-head .idx {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+}
+.bug dl { margin: 0; display: grid; gap: 10px; }
+.bug dt {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.bug dd { margin: 0; font-size: .95rem; color: var(--ink-soft); }
+.bug dd b { color: var(--ink); }
+.measure {
+  font-family: var(--mono);
+  font-size: .84rem;
+  background: var(--bg-sunk);
+  border-left: 3px solid var(--s-cruise);
+  padding: 10px 14px;
+  color: var(--ink);
+}
+.testname {
+  font-family: var(--mono);
+  font-size: .76rem;
+  color: var(--muted);
+  word-break: break-word;
+}
+
+/* ================= iki kolon kart ================= */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 28px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 18px 19px;
+  display: grid;
+  gap: 8px;
+}
+.card .eyebrow { color: var(--accent); }
+.card p { margin: 0; font-size: .92rem; color: var(--ink-soft); }
+
+/* ================= liste ================= */
+ul.tight { margin: 20px 0 0; padding-left: 1.15em; }
+ul.tight li { margin-bottom: .55em; color: var(--ink-soft); }
+ul.tight li b { color: var(--ink); }
+
+ol.road { margin: 26px 0 0; padding: 0; list-style: none; counter-reset: r; display: grid; gap: 2px; }
+ol.road li {
+  counter-increment: r;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 210px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+}
+@media (max-width: 760px) { ol.road li { grid-template-columns: 34px 1fr; } ol.road li .why { grid-column: 2; } }
+ol.road li::before {
+  content: counter(r);
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+ol.road .what { font-weight: 600; font-size: .95rem; }
+ol.road .why { font-size: .89rem; color: var(--muted); }
+
+footer {
+  border-top: 1px solid var(--rule);
+  background: var(--bg-sunk);
+  padding: 38px 0 52px;
+}
+footer p { color: var(--muted); font-size: .9rem; max-width: 62ch; }
+footer .eyebrow { color: var(--accent); }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">TEKNOFEST Robotaksi · Hazır Araç · Otonomi</span>
+        <h1>Mergen-01<span class="thin">Sakınma Yığını</span></h1>
+        <p class="thesis">
+          Lidar tabanlı engel algılama ve otonom sakınma, TurtleBot3 + Gazebo üzerinde.
+          Karar mantığının tamamı ROS'tan bağımsız saf Python; <strong>50 birim testi
+          Gazebo açmadan saniyeler içinde koşuyor.</strong> Senaryolar tek yerde tanımlı,
+          Gazebo dünyaları oradan üretiliyor — 2B ve 3B testler aynı parkuru ölçüyor.
+        </p>
+      </div>
+      <div>
+        <div class="readout" style="margin-top:6px">
+          <div><span>ROS sürümü</span><span>Humble (araçta Foxy)</span></div>
+          <div><span>Kontrol döngüsü</span><span>20 Hz</span></div>
+          <div><span>Planlayıcı</span><span>VFH türevi + 6 durumlu FSM</span></div>
+          <div><span>Parametre</span><span>41 (tek dosyada)</span></div>
+          <div><span>Kinematik</span><span>diferansiyel + Ackermann</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat ok"><span class="n">50/50</span><span class="k">birim testi geçti</span></div>
+      <div class="stat ok"><span class="n">8/8</span><span class="k">Gazebo'da temassız</span></div>
+      <div class="stat ok"><span class="n">0</span><span class="k">çarpışma</span></div>
+      <div class="stat hot"><span class="n">9</span><span class="k">bulunup düzeltilen hata</span></div>
+    </div>
+
+    <div class="hero-foot">
+      <span>perception.py → planner.py → control.py</span>
+      <span>·</span>
+      <span>2022–2026 şartnameleri incelendi</span>
+      <span>·</span>
+      <span>Final: 23–26.08, Bilişim Vadisi</span>
+    </div>
+  </div>
+</header>
+
+<hr class="lane">
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Soru 1</span>
+      <h2>Otonom araç nasıl yürür?</h2>
+      <p class="lead">
+        Bir döngüdür. Saniyede 10–50 kez beş adım tekrarlanır. Kritik nokta: bu bir boru
+        hattı değil, <b>kapalı çevrimdir</b> — araç her hareket ettiğinde dünya değişir.
+        Bir katman yavaşlarsa araç eski bir dünya resmine göre gaz verir; otonom
+        araçlardaki en tehlikeli arıza biçimi budur.
+      </p>
+    </div>
+
+    <div class="loop">
+      <div class="step">
+        <span class="eyebrow">Algılama</span>
+        <span class="q">Etrafımda ne var?</span>
+        <span class="d">Lidar, kamera, radar. Taramayı temizle, gürültüye dayanıklı hale getir, gövde yarıçapı kadar şişir.</span>
+        <span class="f">perception.py</span>
+      </div>
+      <div class="step gap-layer">
+        <span class="eyebrow">Konumlama</span>
+        <span class="q">Ben neredeyim?</span>
+        <span class="d">GPS + IMU + odometri füzyonu. Bu depoda yok — Gazebo odometrisi doğrudan kullanılıyor.</span>
+        <span class="f">eksik · yol haritası #3</span>
+      </div>
+      <div class="step">
+        <span class="eyebrow">Planlama</span>
+        <span class="q">Nereye gitmeliyim?</span>
+        <span class="d">91 aday yön üret, üç terimli maliyetle puanla: hedeften sapma + kapalılık + histerezis.</span>
+        <span class="f">planner.py</span>
+      </div>
+      <div class="step">
+        <span class="eyebrow">Karar</span>
+        <span class="q">Şimdi ne yapmalıyım?</span>
+        <span class="d">Altı durumlu makine. Aynı komutu (v=0) farklı sebeplerle üretir ve farklı koşullarda bırakır.</span>
+        <span class="f">planner.py · DriveState</span>
+      </div>
+      <div class="step">
+        <span class="eyebrow">Kontrol</span>
+        <span class="q">Direksiyon kaç derece?</span>
+        <span class="d">Hız profili, ivme limiti, kinematik kısıt. Komut zıplamaz — sürülür.</span>
+        <span class="f">control.py</span>
+      </div>
+    </div>
+
+    <p class="loop-note">
+      Bu beş başlık keyfî değil: 2026 Simülasyon Raporu Şablonu'nun 7. bölümü aynı sırayı
+      istiyor (7.1 Algılama → 7.5 Kontrol) ve şartname “burada listelenen başlıklar
+      üzerinden puanlama sağlanacaktır” diyor. Dosya isimleri de bu yüzden böyle.
+    </p>
+  </div>
+</section>
+
+<section class="sunk">
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Mekanizma</span>
+      <h2>Tek bir karar karesi</h2>
+      <p class="lead">
+        Aşağıdaki diyagram elle çizilmedi — <b>kodun gerçek çıktısı.</b>
+        <code>w2_cone_slalom</code> parkurunda robot ilk koniye yaklaşırken alınmış bir
+        kare. Planlayıcı bu karede <code>AVOID</code> durumunda ve <b>+32.4°</b> sola
+        yöneliyor.
+      </p>
+    </div>
+
+    <div class="scope-grid">
+      <div class="scope">
+        <svg viewBox="-250 -250 500 310" role="img"
+             aria-label="Polar lidar karar diyagramı: gövde merkezde, kırmızı alan geçilemeyen açı aralıkları, yeşil alan boşluklar, turuncu kalın çizgi seçilen yön +32.4 derece">
+          <circle class="ring" cx="0" cy="0" r="76.0"/>
+          <text class="ringlab" x="4" y="-63.0">1 m</text>
+          <circle class="ring" cx="0" cy="0" r="152.0"/>
+          <text class="ringlab" x="4" y="-139.0">2 m</text>
+          <circle class="ring" cx="0" cy="0" r="228.0"/>
+          <text class="ringlab" x="4" y="-215.0">3 m</text>
+          <path class="blocked" d="M 0 0 L -128.0 -188.7 A 228.0 228.0 0 0 1 107.2 -201.2 Z"/>
+          <path class="freegap" d="M 0 0 L -228.0 -0.2 A 228.0 228.0 0 0 1 -128.0 -188.7 Z"/>
+          <path class="freegap" d="M 0 0 L 107.2 -201.2 A 228.0 228.0 0 0 1 228.0 -0.2 Z"/>
+          <polyline class="hits" points="0.0,-51.3 0.9,-51.6 1.8,-51.9 2.7,-52.3 3.7,-52.9 4.7,-53.5 5.7,-54.4 6.8,-55.5 8.0,-57.1 9.5,-60.3 46.7,-219.9 48.8,-211.2 51.8,-207.8 55.2,-205.9 58.8,-204.9 62.7,-205.0 67.1,-206.6 -15.6,-58.2 -13.9,-55.7 -12.5,-54.3 -11.3,-53.3 -10.2,-52.6 -9.2,-52.1 -8.2,-51.7 -7.2,-51.4 -6.3,-51.1 -5.4,-51.0 -4.5,-50.9 -3.6,-50.8 -2.7,-50.9 -1.8,-50.9 -0.9,-51.1"/>
+          <circle class="hit" cx="0.0" cy="-51.3" r="2.1"/>
+          <circle class="hit" cx="0.9" cy="-51.6" r="2.1"/>
+          <circle class="hit" cx="1.8" cy="-51.9" r="2.1"/>
+          <circle class="hit" cx="2.7" cy="-52.3" r="2.1"/>
+          <circle class="hit" cx="3.7" cy="-52.9" r="2.1"/>
+          <circle class="hit" cx="4.7" cy="-53.5" r="2.1"/>
+          <circle class="hit" cx="5.7" cy="-54.4" r="2.1"/>
+          <circle class="hit" cx="6.8" cy="-55.5" r="2.1"/>
+          <circle class="hit" cx="8.0" cy="-57.1" r="2.1"/>
+          <circle class="hit" cx="9.5" cy="-60.3" r="2.1"/>
+          <circle class="hit" cx="46.7" cy="-219.9" r="2.1"/>
+          <circle class="hit" cx="48.8" cy="-211.2" r="2.1"/>
+          <circle class="hit" cx="51.8" cy="-207.8" r="2.1"/>
+          <circle class="hit" cx="55.2" cy="-205.9" r="2.1"/>
+          <circle class="hit" cx="58.8" cy="-204.9" r="2.1"/>
+          <circle class="hit" cx="62.7" cy="-205.0" r="2.1"/>
+          <circle class="hit" cx="67.1" cy="-206.6" r="2.1"/>
+          <circle class="hit" cx="-15.6" cy="-58.2" r="2.1"/>
+          <circle class="hit" cx="-13.9" cy="-55.7" r="2.1"/>
+          <circle class="hit" cx="-12.5" cy="-54.3" r="2.1"/>
+          <circle class="hit" cx="-11.3" cy="-53.3" r="2.1"/>
+          <circle class="hit" cx="-10.2" cy="-52.6" r="2.1"/>
+          <circle class="hit" cx="-9.2" cy="-52.1" r="2.1"/>
+          <circle class="hit" cx="-8.2" cy="-51.7" r="2.1"/>
+          <circle class="hit" cx="-7.2" cy="-51.4" r="2.1"/>
+          <circle class="hit" cx="-6.3" cy="-51.1" r="2.1"/>
+          <circle class="hit" cx="-5.4" cy="-51.0" r="2.1"/>
+          <circle class="hit" cx="-4.5" cy="-50.9" r="2.1"/>
+          <circle class="hit" cx="-3.6" cy="-50.8" r="2.1"/>
+          <circle class="hit" cx="-2.7" cy="-50.9" r="2.1"/>
+          <circle class="hit" cx="-1.8" cy="-50.9" r="2.1"/>
+          <circle class="hit" cx="-0.9" cy="-51.1" r="2.1"/>
+          <line class="cand" x1="-39.5" y1="-0.0" x2="-73.7" y2="-0.1" opacity="0.18"/>
+          <line class="cand" x1="-39.5" y1="-1.4" x2="-74.4" y2="-2.7" opacity="0.19"/>
+          <line class="cand" x1="-39.4" y1="-2.8" x2="-75.0" y2="-5.3" opacity="0.21"/>
+          <line class="cand" x1="-39.3" y1="-4.2" x2="-75.4" y2="-8.0" opacity="0.22"/>
+          <line class="cand" x1="-39.1" y1="-5.5" x2="-75.8" y2="-10.7" opacity="0.24"/>
+          <line class="cand" x1="-38.9" y1="-6.9" x2="-76.1" y2="-13.5" opacity="0.25"/>
+          <line class="cand" x1="-38.6" y1="-8.3" x2="-76.3" y2="-16.3" opacity="0.26"/>
+          <line class="cand" x1="-38.3" y1="-9.6" x2="-76.4" y2="-19.2" opacity="0.28"/>
+          <line class="cand" x1="-38.0" y1="-11.0" x2="-76.3" y2="-22.0" opacity="0.29"/>
+          <line class="cand" x1="-37.6" y1="-12.3" x2="-76.2" y2="-24.9" opacity="0.31"/>
+          <line class="cand" x1="-37.1" y1="-13.6" x2="-76.0" y2="-27.8" opacity="0.32"/>
+          <line class="cand" x1="-36.6" y1="-14.9" x2="-75.6" y2="-30.7" opacity="0.33"/>
+          <line class="cand" x1="-36.1" y1="-16.1" x2="-75.1" y2="-33.6" opacity="0.35"/>
+          <line class="cand" x1="-35.5" y1="-17.4" x2="-74.6" y2="-36.6" opacity="0.36"/>
+          <line class="cand" x1="-34.9" y1="-18.6" x2="-73.9" y2="-39.5" opacity="0.38"/>
+          <line class="cand" x1="-34.2" y1="-19.8" x2="-73.1" y2="-42.4" opacity="0.39"/>
+          <line class="cand" x1="-33.5" y1="-21.0" x2="-72.1" y2="-45.3" opacity="0.40"/>
+          <line class="cand" x1="-32.7" y1="-22.2" x2="-71.1" y2="-48.2" opacity="0.42"/>
+          <line class="cand" x1="-31.9" y1="-23.3" x2="-70.0" y2="-51.1" opacity="0.43"/>
+          <line class="cand" x1="-31.1" y1="-24.4" x2="-68.7" y2="-54.0" opacity="0.45"/>
+          <line class="cand" x1="-30.2" y1="-25.5" x2="-67.3" y2="-56.8" opacity="0.46"/>
+          <line class="cand" x1="-29.3" y1="-26.5" x2="-65.8" y2="-59.6" opacity="0.47"/>
+          <line class="cand" x1="-28.3" y1="-27.5" x2="-64.2" y2="-62.4" opacity="0.49"/>
+          <line class="cand" x1="-27.4" y1="-28.5" x2="-62.5" y2="-65.1" opacity="0.50"/>
+          <line class="cand" x1="-26.4" y1="-29.4" x2="-60.6" y2="-67.8" opacity="0.52"/>
+          <line class="cand" x1="-25.3" y1="-30.4" x2="-58.7" y2="-70.4" opacity="0.53"/>
+          <line class="cand" x1="-24.2" y1="-31.2" x2="-56.6" y2="-73.0" opacity="0.54"/>
+          <line class="cand" x1="-23.1" y1="-32.0" x2="-54.5" y2="-75.5" opacity="0.56"/>
+          <line class="cand" x1="18.8" y1="-34.8" x2="46.4" y2="-85.9" opacity="0.65"/>
+          <line class="cand" x1="20.0" y1="-34.1" x2="49.3" y2="-84.2" opacity="0.65"/>
+          <line class="cand" x1="21.2" y1="-33.4" x2="53.7" y2="-84.7" opacity="0.70"/>
+          <line class="cand" x1="22.3" y1="-32.6" x2="56.2" y2="-82.2" opacity="0.69"/>
+          <line class="cand" x1="23.4" y1="-31.8" x2="58.7" y2="-79.6" opacity="0.67"/>
+          <line class="cand" x1="24.5" y1="-31.0" x2="61.0" y2="-76.9" opacity="0.66"/>
+          <line class="cand" x1="25.6" y1="-30.1" x2="63.2" y2="-74.2" opacity="0.64"/>
+          <line class="cand" x1="26.6" y1="-29.2" x2="65.2" y2="-71.4" opacity="0.63"/>
+          <line class="cand" x1="27.7" y1="-28.2" x2="67.2" y2="-68.6" opacity="0.62"/>
+          <line class="cand" x1="28.6" y1="-27.2" x2="69.0" y2="-65.7" opacity="0.60"/>
+          <line class="cand" x1="29.6" y1="-26.2" x2="70.7" y2="-62.8" opacity="0.59"/>
+          <line class="cand" x1="30.5" y1="-25.2" x2="72.3" y2="-59.8" opacity="0.57"/>
+          <line class="cand" x1="31.3" y1="-24.1" x2="73.8" y2="-56.8" opacity="0.56"/>
+          <line class="cand" x1="32.1" y1="-23.0" x2="75.2" y2="-53.8" opacity="0.55"/>
+          <line class="cand" x1="32.9" y1="-21.8" x2="76.4" y2="-50.7" opacity="0.53"/>
+          <line class="cand" x1="33.7" y1="-20.7" x2="77.5" y2="-47.6" opacity="0.52"/>
+          <line class="cand" x1="34.4" y1="-19.5" x2="78.5" y2="-44.5" opacity="0.50"/>
+          <line class="cand" x1="35.0" y1="-18.3" x2="79.4" y2="-41.4" opacity="0.49"/>
+          <line class="cand" x1="35.7" y1="-17.0" x2="80.2" y2="-38.3" opacity="0.48"/>
+          <line class="cand" x1="36.2" y1="-15.8" x2="80.8" y2="-35.2" opacity="0.46"/>
+          <line class="cand" x1="36.8" y1="-14.5" x2="81.3" y2="-32.1" opacity="0.45"/>
+          <line class="cand" x1="37.2" y1="-13.2" x2="81.7" y2="-29.0" opacity="0.43"/>
+          <line class="cand" x1="37.7" y1="-11.9" x2="82.0" y2="-25.9" opacity="0.42"/>
+          <line class="cand" x1="38.1" y1="-10.6" x2="82.2" y2="-22.8" opacity="0.41"/>
+          <line class="cand" x1="38.4" y1="-9.2" x2="82.2" y2="-19.7" opacity="0.39"/>
+          <line class="cand" x1="38.7" y1="-7.9" x2="82.1" y2="-16.7" opacity="0.38"/>
+          <line class="cand" x1="39.0" y1="-6.5" x2="82.0" y2="-13.7" opacity="0.36"/>
+          <line class="cand" x1="39.2" y1="-5.2" x2="81.7" y2="-10.7" opacity="0.35"/>
+          <line class="cand" x1="39.3" y1="-3.8" x2="81.3" y2="-7.8" opacity="0.34"/>
+          <line class="cand" x1="39.4" y1="-2.4" x2="80.8" y2="-4.9" opacity="0.32"/>
+          <line class="cand" x1="39.5" y1="-1.0" x2="80.2" y2="-2.1" opacity="0.31"/>
+          <line class="cand" x1="39.5" y1="-0.0" x2="79.7" y2="-0.1" opacity="0.30"/>
+          <line class="chosen" x1="0" y1="0" x2="91.6" y2="-144.4"/>
+          <circle class="chosentip" cx="91.6" cy="-144.4" r="4.6"/>
+          <line class="goal" x1="0" y1="0" x2="0.0" y2="-114.0"/>
+          <circle class="body" cx="0" cy="0" r="19.8"/>
+          <circle class="bodydot" cx="0" cy="0" r="3"/>
+        </svg>
+      </div>
+
+      <div>
+        <ul class="legend">
+          <li><span class="sw" style="background:var(--scope-hit);opacity:.72"></span>
+              <span class="t"><b>Lidar isabetleri</b> — ufuk (3 m) içindeki gerçek ışın dönüşleri. <code>inf</code> dönüşler “boş alan” sayılır, atılmaz.</span></li>
+          <li><span class="sw" style="background:var(--s-blocked);opacity:.45"></span>
+              <span class="t"><b>Geçilemeyen açılar</b> — her engel, gövde yarıçapı yüzünden <code>asin(R/d)</code> kadar ek açı kapatır. Buna konfigürasyon uzayına şişirme denir; yapmazsan araç omzuyla sıyırır.</span></li>
+          <li><span class="sw" style="background:var(--s-cruise);opacity:.35"></span>
+              <span class="t"><b>Boşluklar</b> — şişirmeden sonra kalan, robotun gerçekten sığdığı yönler.</span></li>
+          <li><span class="sw" style="background:var(--ink);opacity:.5"></span>
+              <span class="t"><b>Aday yönler</b> — ±90° içinde 2° adımla 91 aday. Çizgi uzunluğu ve koyuluğu maliyetin tersi: uzun olan daha iyi.</span></li>
+          <li><span class="sw" style="background:var(--muted)"></span>
+              <span class="t"><b>Hedef yön</b> (kesikli) — dünya çerçevesinde tanımlı, her karede gövdeye çevrilir.</span></li>
+          <li><span class="sw" style="background:var(--s-avoid)"></span>
+              <span class="t"><b>Seçilen yön</b> — en düşük maliyetli aday. Gövde çemberi de aynı renkte.</span></li>
+        </ul>
+
+        <div class="readout">
+          <div><span>durum</span><span>AVOID</span></div>
+          <div><span>ön koni mesafesi</span><span>0.67 m</span></div>
+          <div><span>aday / uygulanabilir</span><span>91 / 60</span></div>
+          <div><span>seçilen yön</span><span>+32.4°</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <p>
+        Maliyet fonksiyonunun üçüncü terimi — <b>histerezis</b> — kritiktir. Sıfır
+        yapıldığında iki eşit boşluk arasında araç saniyede on kez karar değiştirip
+        yerinde titriyor. Canlı gösterilebilir:
+        <code>ros2 param set /mergen_avoider w_smooth 0.0</code>
+      </p>
+      <p>
+        Potansiyel alan yöntemi kullanılmadı, iki somut sebeple: yerel minimumda
+        kilitlenir (U şeklinde çıkmaz sokakta çekim ile itme dengelenir) ve dar koridorda
+        iki duvarın itmesi titreme üretir. Aday-rota şeması ikisini de doğrudan ele
+        alıyor — kilitlenmeyi <code>RECOVER</code> durumu, titremeyi <code>w_smooth</code>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Karar katmanı</span>
+      <h2>Altı durum, altı farklı sebep</h2>
+      <p class="lead">
+        Davranış sadece “şu an ne görüyorum”a değil, “hangi moddayım”a da bağlı.
+        Kırmızı ışıkta duran araçla engel önünde duran araç aynı komutu üretir ama
+        farklı koşullarda kalkar. Durum makinesi bunu açıkça yazmanın yolu.
+      </p>
+    </div>
+
+    <div class="fsm">
+      <div class="fsm-row" style="--st: var(--s-cruise)">
+        <span class="fsm-name">CRUISE</span>
+        <span class="fsm-when">ön &gt; 2.0 m</span>
+        <span class="fsm-do">Hedef yönde tam hız.</span>
+      </div>
+      <div class="fsm-row" style="--st: var(--s-slow)">
+        <span class="fsm-name">SLOW</span>
+        <span class="fsm-when">ön &lt; 2.0 m</span>
+        <span class="fsm-do">Hız lineer olarak düşer, yön korunur. Yaklaşan bir cisim varsa kademeli ek kesinti.</span>
+      </div>
+      <div class="fsm-row" style="--st: var(--s-avoid)">
+        <span class="fsm-name">AVOID</span>
+        <span class="fsm-when">ön &lt; 1.4 m</span>
+        <span class="fsm-do">Sakınma manevrası: en düşük maliyetli boşluğa yönelir, taban hızın altına inmez.</span>
+      </div>
+      <div class="fsm-row" style="--st: var(--s-blocked)">
+        <span class="fsm-name">BLOCKED</span>
+        <span class="fsm-when">uygulanabilir yön yok</span>
+        <span class="fsm-do"><b>Önce durup bekler.</b> Sahne hareketliyse beklemeye devam eder (biri geçiyor); donmuşsa kilitli bir yöne dönüp yol arar.</span>
+      </div>
+      <div class="fsm-row" style="--st: var(--s-emergency)">
+        <span class="fsm-name">EMERGENCY</span>
+        <span class="fsm-when">TTC kritik · ön &lt; 0.25 m</span>
+        <span class="fsm-do">Ani fren — ama rampalı. Panik frende bile fizik geçerli: tek karede sıfır yazmak gerçek fren sisteminde uygulanamaz.</span>
+      </div>
+      <div class="fsm-row" style="--st: var(--s-recover)">
+        <span class="fsm-name">RECOVER</span>
+        <span class="fsm-when">3 s ilerleme yok</span>
+        <span class="fsm-do">Geri al + dön. Manevra <b>bölünmez</b>: yarıda kesilen kurtarma, robotu girdiği köşede bırakır.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="lane">
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Ölçüm</span>
+      <h2>Sekiz senaryo, sıfır çarpışma</h2>
+      <p class="lead">
+        Aşağıdaki tablo <b>gerçek Gazebo koşusundan</b>: gerçek fizik motoru, gerçek
+        lidar gürültüsü, gerçek diferansiyel sürüş eklentisi. Senaryolar
+        <code>sim2d.py</code> içinde tek yerde tanımlı ve Gazebo dünyaları oradan
+        üretiliyor — yani 2B ile 3B aynı parkuru ölçüyor. Ölçümler de örtüşüyor:
+        slalomda en yakın yaklaşma 2B'de 0.26 m, Gazebo'da 0.26 m.
+      </p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Senaryo</th><th>Ne test ediyor</th><th>Sonuç</th>
+            <th>En yakın</th><th>Yol</th><th>Süre</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="w">w1_empty</td><td>taban çizgisi: hız, düz gitme</td>
+              <td><span class="pill pass">başarılı</span></td><td class="num">—</td><td class="num">12.44 m</td><td class="num">57.4 s</td></tr>
+          <tr><td class="w">w2_cone_slalom</td><td>art arda yön değiştirme, histerezis</td>
+              <td><span class="pill pass">başarılı</span></td><td class="num">0.26 m</td><td class="num">11.34 m</td><td class="num">57.7 s</td></tr>
+          <tr><td class="w">w3_corridor</td><td>şerit disiplini (koridor + variller)</td>
+              <td><span class="pill pass">başarılı</span></td><td class="num">0.39 m</td><td class="num">12.42 m</td><td class="num">57.9 s</td></tr>
+          <tr><td class="w">w4_lane_block</td><td>şeridi kısmen kapatan statik engel</td>
+              <td><span class="pill pass">başarılı</span></td><td class="num">0.47 m</td><td class="num">12.48 m</td><td class="num">57.8 s</td></tr>
+          <tr><td class="w">w5_dead_end</td><td>kısa çıkmaz koridor, etrafından dolaşma</td>
+              <td><span class="pill pass">başarılı</span></td><td class="num">0.25 m</td><td class="num">11.67 m</td><td class="num">57.9 s</td></tr>
+          <tr><td class="w">w6_dense_clutter</td><td>yoğun koniler, sürekli yeniden planlama</td>
+              <td><span class="pill pass">başarılı</span></td><td class="num">0.25 m</td><td class="num">11.88 m</td><td class="num">57.7 s</td></tr>
+          <tr><td class="w">w7_trap_pocket</td><td>kapalı cep — bilinen sınır</td>
+              <td><span class="pill expect">beklenen</span></td><td class="num">0.81 m</td><td class="num">5.36 m</td><td class="num">58.0 s</td></tr>
+          <tr><td class="w">w8_pedestrian</td><td>aniden karşıya geçen yaya</td>
+              <td><span class="pill pass">başarılı</span></td><td class="num">1.00 m</td><td class="num">12.37 m</td><td class="num">58.0 s</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>
+        İki satır özel okunmalı. <code>w7_trap_pocket</code> kasıtlı olarak
+        <b>çözülemez</b> bir parkur: salt tepkisel bir yerel planlayıcı yerel minimumdan
+        kendi başına çıkamaz. Bu yöntemin tanımlı sınırı, kusuru değil — beklenti
+        çarpmamak ve kapanı fark etmek. Çözüm global planlayıcı eklemek.
+      </p>
+      <p>
+        <code>w8_pedestrian</code> ise dinamik engel katmanının gerçek fizikteki
+        sınavı. Gazebo logundan, aynen:
+      </p>
+      <div class="readout" style="margin-top:14px">
+        <div><span>CRUISE · ön 3.00 m</span><span>v = 0.22</span></div>
+        <div><span>SLOW · ön 1.42 m · kapanma +0.80 m/s</span><span>çarpan 0.18</span></div>
+        <div><span>AVOID · ön 1.17 m</span><span>yön +0.15 rad</span></div>
+        <div><span>AVOID · ön 1.03 m</span><span>yön −0.52 rad</span></div>
+        <div><span>CRUISE · yaya geçti</span><span>v = 0.21</span></div>
+      </div>
+      <p>
+        Algıladı, yavaşladı, sakındı, göreve devam etti. En yakın yaklaşma 1.00 m,
+        temas yok. Şartname bunu ödüllendiriyor:
+        <i>“sakınma yaparak engele çarpmadı / hızını ayarladı → +50.”</i>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="sunk">
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">En değerli kısım</span>
+      <h2>Bulunup düzeltilen üç hata</h2>
+      <p class="lead">
+        Üçü de gözle değil <b>ölçümle</b> bulundu; üçü de kalıcı teste bağlandı. “Çarpışma
+        yok” yazıyordu ama en yakın yaklaşma 0.00 m'ydi — grafik ve log olmasa hiçbiri
+        görünmezdi.
+      </p>
+    </div>
+
+    <div class="bugs">
+      <div class="bug">
+        <div class="bug-head">
+          <span class="idx">1</span>
+          <h3>Dönüş yönü titremesi (limit çevrimi)</h3>
+        </div>
+        <dl>
+          <div><dt>Belirti</dt><dd>Kapalı bir cepte robot 46 saniye boyunca <b>−19° ile +2° arasında salındı</b>, net dönüş sıfır, hiç kurtulamadı.</dd></div>
+          <div><dt>Kök neden</dt><dd>“Hangi taraf daha boş” sorusu <b>her karede</b> yeniden soruluyordu. Simetrik koridorda cevap sürekli taraf değiştiriyor.</dd></div>
+          <div><dt>Düzeltme</dt><dd><code>BLOCKED</code>'a girince dönüş yönü <b>bir kez</b> seçilip kilitleniyor; durumdan çıkana kadar korunuyor. Dönmek işe yaramazsa zaman aşımıyla geri almaya tırmanıyor.</dd></div>
+        </dl>
+        <p class="testname">test_blocked_turn_direction_is_latched_and_does_not_chatter</p>
+      </div>
+
+      <div class="bug">
+        <div class="bug-head">
+          <span class="idx">2</span>
+          <h3>Yaya gelince 180° dönüp ters yöne gitme</h3>
+        </div>
+        <dl>
+          <div><dt>Belirti</dt><dd>Yaya koridoru kapattığında araç “geçilebilir yön yok” deyip yerinde döndü ve <b>koridorda ters yöne</b> gitti.</dd></div>
+          <div><dt>Kök neden</dt><dd>“Yol kapalı” iki farklı şey olabilir ve ayrılmıyordu. Önümü bir <i>duvar</i> kapatıyorsa yön aramalıyım; önümden biri <i>geçiyorsa</i> beklemeliyim.</dd></div>
+          <div><dt>Düzeltme</dt><dd>Açısal profilin kova başına ortalama değişimi ölçülüyor (m/s). Sahne hareketliyse bekleme sayacı işlemez — yaya geçene kadar beklenir. Kapanma hızı bu ayrımı tek başına <b>yapamaz</b>: tam önünden dik geçen yaya mesafeyi sabit tutar.</dd></div>
+        </dl>
+        <p class="measure">w8_pedestrian: çarpışma yok · hedefe vardı · 45.0 s (boş koridor 41.4 s → 3.6 s bekledi)</p>
+      </div>
+
+      <div class="bug">
+        <div class="bug-head">
+          <span class="idx">3</span>
+          <h3>Yanal yaklaşan engeli geç görme</h3>
+        </div>
+        <dl>
+          <div><dt>Belirti</dt><dd>Yayaya çarpıyordu. En yakın yaklaşma <b>0.00 m</b>.</dd></div>
+          <div><dt>Kök neden</dt><dd>Planlayıcı her kareyi <b>statik</b> görüyordu. Yanal yaklaşan bir cisim, önüne girene kadar tehdit sayılmıyordu — yani hız bilgisi hiç yoktu.</dd></div>
+          <div><dt>Düzeltme</dt><dd>İki ardışık taramadan kapanma hızı + TTC tabanlı kademeli fren. Gözetleme arkı ön koniden (±20°) geniş: <b>±75°</b> — yanal yaklaşan yaya ön koniye girdiğinde zaten çok yakındır.</dd></div>
+        </dl>
+        <p class="measure">en yakın yaklaşma: 0.00 m → 0.19 m → 0.28 m · slalom ve koridor süreleri değişmedi (yanlış fren üretmiyor)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Simülasyondan gerçeğe</span>
+      <h2>Diferansiyel sürüş ≠ Ackermann</h2>
+      <p class="lead">
+        Takımların simülasyondan gerçek araca geçerken düştüğü tuzak bu.
+        TurtleBot3 diferansiyel — <b>yerinde dönebilir</b>. Gerçek Robotaksi Ackermann —
+        <b>dönemez</b>. <code>v=0, w=1.0</code> komutu birinde geçerli, diğerinde fiziksel
+        olarak imkansız. Yerinde dönmeye dayanan bir algoritma ilk kavşakta kilitlenir.
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <span class="eyebrow">Yapılan</span>
+        <p><code>bicycle_mode</code> parametresi: yerinde dönme yasaklanır, <code>|ω| ≤ v / R<sub>min</sub></code> zorlanır, <code>BLOCKED</code>'da araç dönmek yerine geri almaya geçer.</p>
+      </div>
+      <div class="card">
+        <span class="eyebrow">Ölçülen</span>
+        <p>8 senaryodan 6'sı geçiyor. <code>w6_dense_clutter</code> çarpışma, <code>w5_dead_end</code> manevra yapamıyor.</p>
+      </div>
+      <div class="card">
+        <span class="eyebrow">Teşhis</span>
+        <p>Bu bir algoritma hatası değil, <b>kinematik uyumsuzluk</b>: 0.8 m aralıklı konilerin arasından 4 m dönüş yarıçapıyla geçmek imkansız.</p>
+      </div>
+      <div class="card">
+        <span class="eyebrow">Sıradaki iş</span>
+        <p>Gerçek parkur da araca göre ölçekli (şerit ~3 m). Parkuru ölçekleyip koşuyu yeniden almak; gerekirse yay tabanlı aday rota üretimi eklemek.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sunk">
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Dürüst liste</span>
+      <h2>Bu depoda ne yok</h2>
+      <p class="lead">
+        Şu an <b>yerel planlama + karar + kontrol</b> katmanları var. Eksikler, önem
+        sırasına göre — bu tablo aynı zamanda takımda hangi işin istenebileceğinin
+        listesi.
+      </p>
+    </div>
+
+    <ol class="road">
+      <li><span class="what">Nesne takibi</span>
+          <span class="why">Dinamik engelin hızını ve yolumu kesip kesmeyeceğini bilmek. Şu an cisimler kimliklendirilmiyor. → en-yakın-komşu eşleştirme + sabit hızlı Kalman</span></li>
+      <li><span class="what">Global planlayıcı</span>
+          <span class="why">Yerel minimum salt tepkisel yöntemle çözülemez. → Nav2 global planlayıcı, bu planlayıcı yerel kontrolcü olarak</span></li>
+      <li><span class="what">Konumlama füzyonu</span>
+          <span class="why">GPS RTK'sız ±1.5 m, görev noktası toleransı ±1 m. → robot_localization EKF + RTK</span></li>
+      <li><span class="what">Şerit tespiti</span>
+          <span class="why">Şerit ihlali −50 ve her 10 saniye yeni bir ihlal sayılıyor. → kamera + perspektif dönüşümü + eğri uydurma</span></li>
+      <li><span class="what">Tabela ve ışık tanıma</span>
+          <span class="why">Her işaret ihlali −50. Araçta RTX 3060 var. → YOLO benzeri dedektör</span></li>
+      <li><span class="what">Park manevrası</span>
+          <span class="why">Başarılı park +80. → boş yer tespiti + RRT* veya hazır manevra şablonu</span></li>
+      <li><span class="what">GEOJSON → rota</span>
+          <span class="why">Görev noktaları ±1 m toleransla. → GPS'ten ENU'ya dönüşüm + waypoint takibi</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Soru 2</span>
+      <h2>Şartname ne istiyor?</h2>
+      <p>
+        Anahtar ifade <b>“gerçek bir sürücü gibi”</b>. Şartname açıkça yazıyor:
+        <i>“Araçların engeller karşısındaki davranışları, insan sürücülerle kıyaslanarak
+        değerlendirilir.”</i> Pratik sonucu: ani manevra, gereksiz duraklama, çok erken
+        sakınma puan kaybettirir — teknik olarak çarpışmamış olsan bile. Bu yüzden ivme
+        limiti ve histerezis süsleme değil, doğrudan puanlama kalemi.
+      </p>
+      <p>
+        Puanlamadan çıkan stratejik okuma: <b>çarpmak diskalifiye</b>, yani birincil hedef
+        “hızlı bitir” değil “çarpma”. Şerit ihlali −50 <i>ve her 10 saniyelik periyot yeni
+        bir ihlal</i> — şartnamenin örneği: “şerit dışında kesintisiz 95 saniyelik bir
+        hareket 10 ihlaldir” → −500 puan. Şerit disiplini tek tek görevlerden daha değerli.
+        Ödül için minimum koşul ise tutarlılık: <b>en az 2 turdan ihlalsiz</b> park
+        bölgesine giriş.
+      </p>
+      <p>
+        Yıllar arası trend net: yarışma her yıl <b>daha az önceden bilinebilir</b>, daha
+        çok gerçek trafik oluyor. 2026'da görev bilgisi tur başına GEOJSON ile veriliyor,
+        engel boyutları kasıtlı olarak standart dışı bırakılıyor — bu, şablon eşlemeye
+        dayalı algılamayı eliyor ve genel amaçlı geometrik yaklaşımı zorunlu kılıyor.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="col">
+      <span class="eyebrow">Doğrulanan ve doğrulanmayan</span>
+      <p style="margin-top:12px">
+        Doğrulanan: 50 birim testi (ROS'suz), ROS katmanının tamamı (Gazebo'suz —
+        sahte <code>/scan</code> ile düğümün <code>/cmd_vel</code> üretimi, QoS,
+        parametreler, güvenlik bekçisi), ve <b>8 senaryonun tamamı gerçek Gazebo'da</b>:
+        sıfır temas, sıfır traceback. Hepsi bu makinede koştu.
+      </p>
+      <p>
+        Dokuz hatanın üçü karar mantığında, altısı entegrasyonda çıktı — ve
+        entegrasyon hatalarının hiçbiri birim testlerinde görünmüyordu. Bunlardan biri
+        özellikle öğretici: Gazebo'daki yaya modeli hiç kımıldamıyordu, dolayısıyla
+        “temas 0” sonucu <b>boş bir iddiaydı</b>. Engeli hiç görmeyen araç da çarpmaz.
+        Rapor üreteci artık bunu yakalıyor: araç tepki vermediyse ve engel hiç
+        yaklaşmadıysa sonuç “başarılı” değil, <b>“geçersiz ölçüm”</b>.
+      </p>
+      <p>
+        Depo: kurulum üç adımda, senaryolar tek komutla
+        (<code>bash scripts/run_scenario.sh w8_pedestrian rviz</code>), dokümanlar
+        <code>docs/</code> altında — şartname özeti, otonomi mimarisi, terimler sözlüğü,
+        haftalık plan, kod gezintisi.
+      </p>
+    </div>
+  </div>
+</footer>

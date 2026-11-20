@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+<!-- ====================================================================
+     OTOMATIK URETILDI. Elle duzenleme kalici olmaz.
+     Kaynak: ros2_ws/src/mergen_avoidance/mergen_avoidance/sim2d.py
+             scenario("w8_pedestrian")
+     Yeniden uretmek icin: python3 scripts/generate_worlds.py w8_pedestrian
+     ==================================================================== -->
+<sdf version="1.6">
+  <world name="w8_pedestrian">
+
+    <!-- Isik ve zemin DOGRUDAN burada tanimli; model://ground_plane gibi
+         harici modeller Gazebo Fuel'den indirilmeye calisilir ve internet
+         yoksa dunya acilmaz. Self-contained olmasi kasitli. -->
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.2 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <surface><friction><ode><mu>100</mu><mu2>50</mu2></ode></friction></surface>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <scene>
+      <ambient>0.5 0.5 0.5 1</ambient>
+      <background>0.6 0.7 0.8 1</background>
+      <shadows>true</shadows>
+    </scene>
+
+    <physics type="ode">
+      <!-- 1 ms adim / 1000 Hz: diff_drive ve lidar icin fazlasiyla yeterli.
+           Toplu testte hizlandirmak icin real_time_update_rate'i 0 yap
+           (olabildigince hizli kos); bkz. scripts/batch_test.sh -->
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <model name="wall_0">
+      <static>true</static>
+      <pose>5.000 1.800 0.350 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>14.000 0.200 0.700</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>14.000 0.200 0.700</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.85 0.85 0.88 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_1">
+      <static>true</static>
+      <pose>5.000 -1.800 0.350 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>14.000 0.200 0.700</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>14.000 0.200 0.700</size></box></geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.85 0.85 0.88 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= DINAMIK ENGEL (yaya) =================
+         gazebo_ros_planar_move eklentisi modeli duzlemde kinematik olarak
+         surer. Komut: /pedestrian/cmd_vel  (mergen_avoidance/pedestrian)
+         <static> OLMAMALI, yoksa eklenti modeli hareket ettiremez.
+         ======================================================== -->
+    <model name="pedestrian">
+      <pose>4.000 -2.000 0.350 0 0 0</pose>
+
+      <!-- ODE hareketsiz govdeleri bir sure sonra UYKU MODUNA alir
+           (auto-disable). Yaya tetiklenene kadar ~16 saniye kipirdamadan
+           bekledigi icin uykuya daliyor ve `SetLinearVel` onu uyandirmiyor:
+           komut gidiyor, model yerinde kaliyor. Olculdu: 3 saniyelik
+           0.45 m/s komuttan sonra yer degistirme 0.0001 m. -->
+      <allow_auto_disable>false</allow_auto_disable>
+
+      <link name="ped_link">
+        <!-- Kinematik govde: hiz komutuyla hareket eder, kuvvetlerden
+             etkilenmez. Yaya icin dogru model: arac ona carparsa yaya
+             savrulmaz, ki gercekte de carpismayi oyle degerlendiriyoruz. -->
+        <kinematic>true</kinematic>
+        <inertial>
+          <mass>20.0</mass>
+          <inertia>
+            <ixx>1.5</ixx><iyy>1.5</iyy><izz>0.6</izz>
+            <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry><box><size>0.45 0.45 0.700</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.45 0.45 0.700</size></box></geometry>
+          <material>
+            <ambient>0.85 0.1 0.1 1</ambient>
+            <diffuse>1.0 0.15 0.15 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <plugin name="pedestrian_planar_move" filename="libgazebo_ros_planar_move.so">
+        <ros>
+          <namespace>/pedestrian</namespace>
+        </ros>
+        <!-- Resmi ornekte (gazebo_plugins/worlds/gazebo_ros_planar_move_demo.world)
+             bu iki alan var; eksikken davranis surumden surume degisiyor. -->
+        <update_rate>100</update_rate>
+        <publish_rate>10</publish_rate>
+        <odometry_frame>pedestrian_odom</odometry_frame>
+        <robot_base_frame>ped_link</robot_base_frame>
+        <publish_odom>false</publish_odom>
+        <publish_odom_tf>false</publish_odom_tf>
+      </plugin>
+    </model>
+
+  </world>
+</sdf>

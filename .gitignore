@@ -1,0 +1,32 @@
+# ROS 2 / colcon
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Kosu ciktilari (uretilmis, repoda tutulmaz)
+results/
+*.bag
+*.db3
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Sartname PDF'leri (19 MB) depoya girmiyor.
+# Metne cevrilmis .txt halleri repoda duruyor -- aranabilir ve kucuk.
+# PDF'leri indirmek icin: bash scripts/fetch_sartnameler.sh
+docs/sartnameler/*.pdf
+docs/sartnameler/*.docx
+
+# Kisisel hazirlik notlari -- diskte duruyor, depoya girmiyor.
+# Bunlar proje dokumani degil; sunum provasi ve konusma notlari.
+SUNUM-KARTI.md
+docs/05-kaptanla-kod-gezintisi.md

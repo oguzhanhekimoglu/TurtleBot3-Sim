@@ -1,0 +1,185 @@
+# =============================================================================
+# mergen_avoidance -- sakinma dugumu ayarlari
+# =============================================================================
+# OTOMATIK URETILDI -- elle duzenleme kalici olmaz.
+#   kaynak : ros2_ws/src/mergen_avoidance/mergen_avoidance/params.py
+#   uretim : python3 scripts/generate_params_yaml.py
+#
+# Calisirken denemek icin (yeniden baslatmadan):
+#   ros2 param set /mergen_avoider max_linear_speed 0.15
+#   ros2 param get /mergen_avoider w_clearance
+# Kalici degisiklik icin params.py'deki varsayilani degistir ve bu scripti kostur.
+# =============================================================================
+mergen_avoider:
+  ros__parameters:
+
+    # Govdeyi cevreleyen daire yaricapi [m]. TurtleBot3 Waffle ~0.22 m; guvenlik payiyla
+    # 0.26 aliyoruz. Robotaksi'de bu ~1.0 m olur (en ~1.5 m).
+    robot_radius: 0.26
+
+    # Bu mesafeden uzagi 'bos' kabul et [m]. Lidar 3.5 m goruyor; 3.0 m karar ufku, hem
+    # gurultulu uzak isinlari eler hem hesabi azaltir.
+    horizon: 3.0
+
+    # On koninin yari genisligi [rad] (~20 derece). Fren karari bu koniye bakar.
+    front_half_width: 0.35
+
+    # Aday bir rotanin 'ne kadar acik' oldugunu olcerken kullanilan koni [rad].
+    clearance_half_width: 0.26
+
+    # `cone_distance` icin k. en kucuk. Tek-isin gurultusune karsi.
+    robust_k: 2
+
+    # Bu mesafenin altinda KOSULSUZ dur [m]. Son guvenlik agi.
+    emergency_distance: 0.25
+
+    # On mesafe bunun altina inerse ilerlemeyi kes, yerinde yon ara [m].
+    stop_distance: 0.45
+
+    # On mesafe bunun altina inerse hiz lineer olarak dusmeye baslar [m].
+    slow_distance: 1.4
+
+    # Bu mesafede engel gorulurse AVOID durumuna gec (erken, yumusak manevra) [m].
+    avoid_trigger_distance: 2.0
+
+    # [m/s]. TurtleBot3 Waffle siniri 0.26 m/s.
+    max_linear_speed: 0.22
+
+    # AVOID sirasinda tamamen durmamak icin taban hiz [m/s].
+    min_linear_speed: 0.05
+
+    # [rad/s]. Waffle siniri 1.82 rad/s.
+    max_angular_speed: 1.3
+
+    # Hiz degisim limiti [m/s^2]. Sartnamedeki 'ergonomi' / yolcu konforu. Bunu koymazsan
+    # arac her karede zipliyormus gibi davranir.
+    max_linear_accel: 0.35
+
+    # [rad/s^2].
+    max_angular_accel: 2.5
+
+    # Aday rotalari +-bu aci icinde ara [rad]. 90 derece.
+    max_steer_angle: 1.57
+
+    # Aday rota tarama adimi [rad] (~2 derece).
+    steer_resolution: 0.035
+
+    # Hedef yonunden sapma cezasi.
+    w_goal: 1.0
+
+    # Rotanin kapaliligi cezasi. Buyurse robot daha korkak/daha genis kacar.
+    w_clearance: 2.2
+
+    # Onceki karardan sapma cezasi = HISTEREZIS. Bunu 0 yaparsan robot iki bosluk arasinda
+    # saniyede 10 kez karar degistirir ve yerinde titrer.
+    w_smooth: 0.7
+
+    # Secilen yon hatasini acisal hiza ceviren P kazanci [1/s].
+    heading_gain: 1.6
+
+    # Donus ne kadar keskinse ileri hizi o kadar kes (0..1).
+    turn_speed_penalty: 0.8
+
+    # Olculen hiz bunun altindaysa 'ilerlemiyor' sayilir [m/s].
+    stuck_speed_threshold: 0.03
+
+    # Olculen acisal hiz bunun altindaysa 'donmuyor' sayilir [rad/s]. 'Sikisti' karari icin
+    # hem ilerleme hem donus olmamali: BLOCKED durumunda robot yerinde donerek yol ariyor
+    # olabilir, bu uretken bir davranistir ve kurtarma manevrasi ile kesilmemelidir.
+    stuck_angular_threshold: 0.15
+
+    # Bu kadar sure ilerlemezse RECOVER'a gec [s].
+    stuck_time: 3.0
+
+    # Sahne degisimini olcmek icin kullanilan aci kovasi sayisi.
+    profile_buckets: 24
+
+    # Kova basina ortalama degisim bunun uzerindeyse sahne HAREKETLI [m/s]. Hareketli
+    # sahnede "yol kapali" demek "biri geciyor" demektir -> beklenir.
+    activity_threshold: 0.1
+
+    # Yol kapaliyken, yon aramaya baslamadan once DURUP BEKLENECEK sure [s]. Insan surucu de
+    # boyle yapar: once durur, bir an bekler, ancak yol gercekten kapaliysa manevraya
+    # baslar. Sahne hareketli oldugu surece bu sayac islemez -- yani gecen yaya bitene kadar
+    # beklemeye devam eder.
+    blocked_wait: 2.0
+
+    # BLOCKED durumunda bu kadar sure cozum bulunamazsa RECOVER'a tirman [s]. Yerinde donmek
+    # ise yaramiyorsa geri almak gerekir; yoksa arac saatlerce ayni noktada yol arar.
+    blocked_timeout: 4.0
+
+    # Geri alirken arkada bu kadar bos olmali [m]. Planlayici yalnizca ONE bakar
+    # (+-max_steer_angle). RECOVER durumunda ise arac GERI gider -- yani bakmadigi yone. Bu
+    # bir kez carpismaya yol acti: dar bir parkurda kilitlenen arac geri alirken arkasindaki
+    # koniye vurdu (olculdu: t=83 s, RECOVER, v=-0.08). Yarisma kurallarinda engele carpmak
+    # DISKALIFIYE sebebi; "geri giderken oldu" diye bir mazeret yok. Arka bu mesafeden
+    # yakinsa geri alinmaz; arac yerinde donmeye calisir.
+    rear_safe_distance: 0.4
+
+    # RECOVER'da geri + don suresi [s].
+    recover_duration: 1.8
+
+    # RECOVER'da geri hiz [m/s] (negatif).
+    recover_linear_speed: -0.08
+
+    # RECOVER'da donus hizi [rad/s] (isaret bos tarafa gore secilir).
+    recover_angular_speed: 0.9
+
+    # Dinamik engel gozetleme arkinin yari genisligi [rad] (~75 derece). Neden on koniden
+    # (0.35 rad) GENIS: yanal yaklasan bir yaya, on koniye girdigi anda zaten cok yakindir.
+    # Yolun kenarindaki hareketi onceden gormek icin genis ark gerekir -- gercek surucunun
+    # yaptigi da bu.
+    wide_arc_half_width: 1.31
+
+    # Bu degerin altindaki kapanma hizlari gurultu kabul edilir [m/s]. Esik koymazsan lidar
+    # gurultusu surekli yanlis fren uretir.
+    closure_min: 0.12
+
+    # Carpismaya kalan sure bunun altina inerse hiz kesmeye basla [s].
+    ttc_warn: 3.0
+
+    # Carpismaya kalan sure bunun altina inerse TAM fren [s].
+    ttc_brake: 1.5
+
+    # Carpismaya kalan sure hesabinda kullanilan tepki suresi [s]. 2023 sartnamesindeki 'Ani
+    # Fren Gorevi'nin karsiligi.
+    reaction_time: 0.45
+
+    # TTC freninde birakilacak ek pay [m].
+    brake_margin: 0.15
+
+    # True ise yerinde donmeyi yasakla ve |w| <= v / min_turn_radius zorla. TurtleBot3
+    # diferansiyel surus -> yerinde donebilir. Robotaksi Ackermann -> DONEMEZ. Algoritmayi
+    # gercek araca tasimadan once bunu True yapip test et; yoksa simulasyonda calisan kod
+    # gercek araca hic oturmaz.
+    bicycle_mode: false
+
+    # Ackermann donus yaricapi [m]. Sadece bicycle_mode=True iken kullanilir.
+    min_turn_radius: 4.0
+
+    # Engel yoksa gidilecek yon [rad]. Gercek sistemde bunu global planlayici (GEOJSON
+    # noktalarindan uretilen rota) doldurur; burada sabit 'duz git'.
+    goal_heading: 0.0
+
+    # Kontrol dongusu periyodu [s] -> 20 Hz.
+    control_period: 0.05
+
+    # ---- dugume ozel (algoritma disi) ----
+
+    # Engel yoksa gidilecek DUNYA cercevesi yonu [rad]. 0 = +x (dogu). Gercek sistemde bunu
+    # GEOJSON rotasindan uretilen global planlayici doldurur.
+    world_goal_heading: 0.0
+
+    # Hedef yonu odometriden govde cercevesine cevir. false ise planlayici 'burnunun
+    # dogrultusuna git' moduna duser.
+    use_odom_for_goal: true
+
+    # Lidar bu kadar sure susarsa araci durdur [s]. Eski taramayla surmeye devam etmek
+    # otonom bir aracta en tehlikeli hatadir.
+    scan_timeout: 0.5
+
+    # RViz karar gorsellerini yayinla.
+    publish_markers: true
+
+    # Konsola durum basma periyodu [s].
+    log_period: 1.0

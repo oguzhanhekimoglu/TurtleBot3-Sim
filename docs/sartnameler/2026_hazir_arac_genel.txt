@@ -1,0 +1,128 @@
+ROBOTAKSİ-BİNEK OTONOM
+    ARAÇ YARIŞMASI
+
+
+HAZIR ARAÇ BİLGİLENDİRME
+       DOKÜMANI
+BEE1 | TEKNİK ÖZELLİKLER
+
+     Üretici                        :   Beemobs
+     Model                          :   Bee 1
+     Tip                            :   L7e-CU
+     Varyant                        :   Kapalı Kasalı
+     Gövde Rengi                    :   Beyaz (RAL9003)
+     Kasa Tipi                      :   Arkada çift kapaklı
+     Aks ve Tekerlek Saysı          :   2, 4
+     Çekiş Tipi                     :   Arkadan İtişli
+     Yolcu Sayısı                   :   1 (sürücü)
+     Gövde Malzemesi                :   ST37-ST52 Çelik
+     Sürücü Konumu                  :   Ortada
+     Güç Sistemi Yerleşimi          :   Arka aks üzerinde
+     Maksimum Araç Hız              :   55 km/sa (30 km/sa ile limitli)
+     Nominal Motor Gücü             :   6 kW
+     Nominal Motor Torku            :   40 Nm
+     Pik Motor Gücü                 :   7.5 kW
+     Pik Motor Torku                :   80 Nm
+     Maksimum Hızlanma İvmesi       :   2,5 m/s2
+     Maksimum Yavaşlama İvmesi      :   6,5 m/s2
+     Boş Araç Ağırlığı              :   760 kg (Ön: 324 kg, Arka: 436 kg)
+     Sürücülü Araç Ağırlığı         :   835 kg (Ön: 498 kg, Arka: 437 kg)
+     Maksimum Araç Ağırlığı         :   1.000 kg
+     Uzunluk                        :   2740 mm
+     Genişlik                       :   1060 mm
+     Yükseklik                      :   1785 mm
+     Dingil Mesafesi                :   1860 mm
+     Arka İz Genişliği              :   850 mm
+     Ön İz Genişliği                :   886 mm
+     Arka Uzantı                    :   470 mm (araç)
+     Ön Uzantı                      :   410 mm
+     Kasa Hacmi                     :   1.200L
+     Güç Sistemi Gerilimi           :   76.8 V (60-88V)
+     Aksesuar Sistemi Gerilimi      :   12 V
+     Elektrik Motor Tipi            :   PMSM
+     Batarya Tipi                   :   LFP
+     Araç Çalışma ve Şarj Süresi    :   8 saat (Şarj: 220 Vac – 25 A, 5 saat)
+     Arka Aks Tipi, Dişli Oranı     :   Rijit Aks, 1:8.1
+     Ön Aks Tipi                    :   MacPherson
+     Süspansiyon Tipi               :   Helezon yaylı / Yağlı amortisörlü
+     Direksiyon Tipi                :   Kremayer
+     Hırsızlığa Karşı Koruma Tipi   :   Mekanik direksiyon kilidi
+     Direksiyon Desteği             :   Elektrik destekli, elektronik kontrollü
+     Dönüş Yarıçapı                 :   4.100 mm (duvardan duvara)
+                                        4.025 mm (kaldırımdan kaldırıma)
+                                        Maksimum iç teker açısı: 32,5 derece
+                                        Maksimum dış teker açısı: 30,0 derece
+    Servis Freni Tipi           : Ön: Ø200mm Disk,
+                                  Arka: Ø210mm Kampana
+    Park Freni Tipi             : Elektrikli, arka aksta
+    Yardımcı Fren Tipi          : Rejeneratif frenleme (tahrik motoru ile)
+    Fren Desteği                : Elektrik destekli, Elektronik kontrollü
+    Viraj Denge Çubuğu          : Ön ve arka aksta
+    İklimlendirme Sistemi       : --
+    Ön Cam Tipi                 : Lamine cam
+    Kapı Camı Tipi              : Temperli cam
+    Kapı Camı Mekanizması       : İki yanda kayar açılır cam
+    Ön Cam Rezistansı           : 189W, 12V
+    Silecek Sistemi Tipi        : 2 hızlı, 1 kollu
+    Gösterge Tipi               : 5” TFT
+    Gösterge Dili               : İngilizce, Metrik
+    Kabin İçi Aksesuar Çıkışı   : USB type-C , x2
+    Ön Aydınlatma Sistemi       : Halojen far
+                                  LED pozisyon/sinyal
+    Arka Aydınlatma Sistemi     : Kombine aydınlatma
+    Dış Ayna Tipi               : Manuel ayarlı
+    Sürücü Koltuğu Tipi         : Ön-arka ve sırt açısı ayarlı,
+                                  Malzeme: Deri
+    Emniyet Kemer Tipi          : 3 noktalı
+    Lastik Tipi                 : 145/70 R13, 155/65 R13, Yaz Lastiği
+    Jant Tipi                   : 13”, 5J, Çelik
+    Dış Giydirme Malzemesi      : DCPD
+    İç Giydirme Malzemesi       : ABS
+    Çeki Aparatı                : Önde
+    Garanti Kapsamı             : 2 yıl ya da 80.000 km – araç
+                                  5 yıl ya da 3.000 çevrim - batarya
+
+
+BEE1 | İLAVE OTONOM SÜRÜŞ UNSURLARI
+
+
+    Fren Aktüatörü              : Enkoderli Step Motor
+                                  86BHH114-450p-40Mp
+    Fren Redüktörü              : 40 Gövde Sonsuz Redüktör 1:5 Oranlı
+    LIDAR Sensörü               : Velodyne Lidar VLP16
+    Kamera                      : ZED2 Stereo
+    GPS/IMU                     : XSENS MTI-680-DK
+    Araç Bilgisayarı            : ADVANTECH 770H + MIC-75G20
+                                  RTX 3060 GPU
+    Wifi Adaptörü               : WAVLINK AC1200 2.4 + 5 Ghz 1.2 Gbps
+    İşletim Sistemi             : UBUNTU 20.04
+    ROS Versiyonu               : ROS1 veya ROS2
+    Araç İletişim Altyapısı     : CANBus
+BEE1 | BOYUTLAR ve GÖRÜNÜM
+Sensör ve Araç Bilgisayarı Yerleşimleri:
+
+ Sensör            Referans           X          Y         Z
+ LIDAR             Ön aks merkezi     - 177 mm   0         + 620 mm
+ Sağ Kamera        Ön aks merkezi     - 205 mm   + 60 mm   + 685 mm
+ Sol Kamera        Ön aks merkezi     - 205 mm   - 60 mm   + 685 mm
+ GPS/IMU           Ön aks merkezi     +1440 mm   0         + 1390 mm
+ BEE1 | ELEKTRİK ŞEMASI
+
+
+
+
+TÜRKÇE Tanımlamalar:
+
+
+ İngilizce Tanım                      Türkçe Tanım
+ Brake Pedal Motor Driver             Elektronik Fren Pedalı Sürücüsü
+ EPS Motor Control Driver             Elektronik Direksiyon Sürücüsü
+ Autonomous Aux System Control Unit   Otonom Sürüş Aksesuar Sistemleri Kontrol
+                                      Ünitesi
+ Emergency Stop Circuit               Acil Durum Durdurma Devresi
+ Brown/Green Socket                   Kahverengi/Yeşil Soket
+ 12V/5V Converter                     12V/5V Çevirici
+ 12V Splitter                         12V Dağıtıcı
+ Fuse Box                             Röle Kutusu
+ Brake Pedal On/Off Relay             Fren Pedal Aktivasyon Rölesi
+

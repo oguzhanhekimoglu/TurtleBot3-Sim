@@ -1,0 +1,271 @@
+ROBOTAKSİ-BİNEK OTONOM
+    ARAÇ YARIŞMASI
+
+
+   HAZIR ARAÇ MİMARİ
+ TANIMLAMA DOKÜMANI
+1 İçindekiler
+2     Donanım Mimarisi ................................................................................................................................... 3
+3     Bileşenler .................................................................................................................................................. 4
+    3.1      İşlemci Birimi ....................................................................................................................................... 4
+      3.1.1          Advantech MIC-770V3H Endüstriyel Box PC ..................................................................... 4
+      3.1.2          MIC-75G20 GPU Expansion Module for Video AI....................................................... 5
+      3.1.3          RTX-3060 GPU Kartı (12GB) ................................................................................................ 7
+    3.2      Lidar.................................................................................................................................. 7
+    3.3      Stereo Kamera .................................................................................................................. 9
+    3.4      GPS/IMU Alıcı................................................................................................................................ 10
+    3.5      WiFi Router ..................................................................................................................... 11
+4     Yazılım Mimarisi .................................................................................................................................... 13
+2 Donanım Mimarisi
+
+
+
+
+                        Figure 1 Donanım Mimarisi
+
+
+
+Bileşenler
+
+   •   İşlemci Birimi
+   •   Lidar
+   •   Stereo Kamera
+   •   GPS/IMU Alıcı
+   •   WiFi Router
+3 Bileşenler
+
+3.1 İşlemci Birimi
+
+
+
+
+                              Figure 2 Advantech MIC-770V3H Endüstriyel Box
+
+3.1.1   Advantech MIC-770V3H Endüstriyel Box PC
+
+
+(w/ MIC-75G20 GPU Expansion Module for Video AI)
+
+
+Intel Core i9-12900TE İşlemci, 32GB RAM, 1TB SSD, RTX-3060 GPU Kartı
+
+
+Features
+MIC-770 V3
+
+    •   Intel® 12th/13th Gen Core™ i CPU socket-type (LGA1700) with Intel® R680E/
+    •   H610E chipset
+    •   Wide operating temperature (-20 ~ 60 °C)
+    •   VGA and HDMI output
+    •   2 x GigaLAN, 2 x USB 3.2 (Gen2) and 6 x USB 3.2 (Gen1)
+    •   2 x RS-232/422/485 and 4 x RS232 serial ports (Optional)
+    •   1 x 2.5" HDD/SSD, 1 x mSATA, and 1 x NVMe M.2
+    •   9 ~ 36 VDC input power range
+    •   IP40 dust proof for deployment in harsh environment
+    •   Supports FlexIO and iDoor technology, flexible configure additional HDMI,
+    •   DP, DVI, COM port, DIO, Remote switch IO
+    •   Supports Advantech i-Modules
+    •   Supports Advantech SUSIAPI and embedded software APIs
+    •   Supports Intel® vPro™/AMT and TPM technologies
+    •   Supports Advantech iBMC 1.2 remote out-of-band power management
+    •   solution on DeviceOn
+
+
+with i9-12900TE processor
+
+    •   Core/Thread number 16/24
+    •   Base Frequency 1.10 GHz
+    •   Max Turbo Frequency 4.80 GHz
+    •   L3 Cache 30 MB
+    •   Temperature -20 ~ 60 °C
+    •   Chipset R680E/H610E
+    •   BIOS AMI 256Mb/128Mb SPI Flash
+
+
+
+
+3.1.2   MIC-75G20 GPU Expansion Module for Video AI
+
+Edge Computing with MIC-7 Series
+
+
+    •   Expansion slot Slot 1/2: Blank, Slot 3: PCIe x16, Slot 4: PCIe x4
+    •   SATA Connector 1 x SATA Signal, 1 x SATA Power
+    •   Storage 2 x 2.5" swappable HDD/SSD storage bay
+    •   Power
+    •   Input: Dual 24 VDC (one on MIC-7000 system, one on MIC-75G20)
+•   Power consumption: Max. Load: 448W (tested with 350W GPU, PoE card and MIC-770
+    system with 65W CPU)
+•   Power solution supports up to maximum 700W (Tested with 350W GPU card's peak power
+    consumption)
+•   x 6-pin Conn. for GPU card (12VDC, 17A for each Conn.)
+•   1 x 4-pin Conn. for add-on card (12VDC, 5A)
+•   GPU Card Dimension Thickness: 59.38 mm (2.75-slot width), Length: 334.6 mm, Height:
+    110.9 mm
+•   Support up to triple-fan fan GPU cards
+•   LED 1x indicating LED for power status
+•   Enviroment
+•   Operating Temp.: -10~60 °C (35W CPU w/ industrial wide-temp. RAM/SSD)
+•   Vibration: With SSD: 1 Grms @ 5~500 Hz, randon, 1 hr/axis
+•   Shock: With SSD: 10G, IEC-68-2-27, half-sine wave, 11 ms duration
+•   Mechanical
+•   MIC-75G20 N.W. 3.5 kg; G.W.: 5.5 kg
+•   Dimension (W x H x D): 130 x192 x 385 mm
+•   Fan 1x 12025 cooling fan embedded (2200 RPM, 82 CFM, Max. 36.5 dB)
+
+
+
+
+                                   Figure 3 MIC-75G20
+                                          Figure 4 MIC-75G20 Slots
+
+3.1.3   RTX-3060 GPU Kartı (12GB)
+
+
+NVIDIA GeForce RTX 3060 GPU
+• 3584 CUDA cores
+• 12GB GDDR6 memory
+• 192-bit memory bus • Engine boost clock: 1777 MHz
+• Memory clock: 15.0 Gbps
+• PCI Express 4.0 16x
+
+
+600-watt power supply recommended (170-watt max power consumption • 8-pin power con-
+nector)
+
+
+3.2 Lidar
+Velodyne VLP-16 (take over from previous platform)
+
+
+• Time of flight distance measurement with calibrated reflectivities
+• 16 channels • Measurement range up to 100 meters
+• Accuracy: +/- 3 cm (typical)
+• Dual returns
+• Field of view (vertical): 30° (+15° to -15°)
+• Angular resolution (vertical): 2°
+• Field of view (horizontal/azimuth): 360°
+• Angular resolution (horizontal/azimuth): 0.1° - 0.4°
+• Rotation rate: 5 - 20 Hz
+• Integrated web server for easy monitoring and configuration
+
+
+
+
+                                             Figure 5 VLP-16
+
+
+
+
+                                        Figure 6 VLP-16 Connection
+                                      Figure 7 Distribution Box connectors
+
+
+3.3 Stereo Kamera
+((take over from previous platform)
+
+
+
+
+                                            Figure 8 ZED2 Camera
+                                    Figure 9 ZED2 Specifications
+
+
+3.4 GPS/IMU Alıcı
+MTI-680-DK XSENS
+
+
+
+
+                                   Figure 10 MTI-680-DK XSENS
+
+
+
+Horizontal pos. accuracy PVT [m] 1.5 (Without RTK)
+Supported GNSS signals: GPS L1C/A [MHz] 1575.42 L2C [MHz] 1227.60 GLONASS L1OF [MHz]
+1598.0 - 1605.4 L2OF [MHz] 1242.9 – 1248.6 Galileo E1-B/C [MHz] 1575.42 E5b [MHz] 1207.14
+BeiDou B1l [MHz] 1561.098 B2l [MHz] 1207.14
+
+
+
+
+                                       Figure 11 Sensor Specifications
+
+*The micro USB port on the main board can be used to connect the MTi-600 to a host though the included
+micro USB cable.
+
+
+3.5 WiFi Router
+AERIAL HD4 – AC1200 Dual-band High Power Outdoor Wireless AP/Range Extender/Router with
+PoE and High Gain Antennas
+                                           Figure 12 WAVLINK AC1200
+
+Ports
+1 x 10/100/1000Mbps WAN
+
+1 x 10/100Mbps LAN
+
+Power Supply
+DC24V / 0.5A Power over Ethernet ( Passive PoE)
+
+WIRELESS
+Standard
+IEEE 802.11a/b/g/n/ac
+
+Speed
+IEEE 802.11ac: up to 867Mbps IEEE 802.11n: up to 300Mbps IEEE 802.11g: 54Mbps IEEE 802.11b: 11Mbps
+
+IEEE 802.11a: up to 54Mbps
+
+Frequency band
+2.4GHz, 5GHz
+
+Wireless Security
+WPA-PSK/ WPA2-PSK encryption
+
+Antennas
+4 x 7dBi Detachable Omni Directional Antennas
+                                            Figure 13 Network Setup
+
+
+
+
+4 Yazılım Mimarisi
+ROTAXI işlemci birimi (Advantech) üzerinde Linux Ubuntu 20.04 işletim sistemi çalışmaktadır. Linux
+işletim sistemin üzerinde ROS1 ve ROS2 ortamları kurulu olarak gelecektir. Kolay kurulum ve
+uyumluluk problemlerini aşmak amacıyla yazılımlar Docker ortamında çalıştırılacaktır. ROS1 veya
+ROS2 ortamları seçimli olarak başlatılabilmektedir.
+
+
+
+
+                                          Figure 14 Yazılım Katmanları
+
+Kullanılan ortamların versiyon bilgisi aşağıda verilmiştir.
+
+    •   İşletim Sistemi: Linux Ubuntu 20.04 LTS (focal forsa)
+
+    •   Kütüphane: ROS1 (noetic) & ROS2 (foxy)
+   •   Sanal Ortam: Docker
+
+
+Sistem ROS1 veya ROS2 olarak ayağa kaldırıldığında gerekli kontrol ve iletişim nodeları
+başlatılmaktadır. Bu ROS nodeları vasıtasıyla kullanıcı araca yüksek seviye ROS mesajları ile komut
+gönderebilmekte ve araç bilgilerini yine ROS mesajları üzerinden okuyabilmektedir. Genel mesaj-
+laşma mimarisi aşağıda gösterilmiştir.
+
+
+
+
+                                      Figure 15 ROS node mimarisi
+
+Ayrıca araç üstündeki sensor verilerine ROS ortamından ulaşmak mümkündür. Lidar point cloud
+bilgisi, stereo kamera RGB görüntü ve derinlik haritası ayrıca GPS/IMU sensörü üzerinden konum
+ve kinematic bilgilere ulaşılarak otonom sürüş için gerekli altyapı sunulmaktadır. Sensörler aşağıdaki
+diagramda gösterilmiştir.
+
+
+
+
+                                          Figure 16 Sensörler
+
